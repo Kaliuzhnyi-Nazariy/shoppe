@@ -2,18 +2,11 @@ import { ArrowRight, Facebook, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="pb-7">
+    <footer className="pb-7 px-4">
       <div className="">
-        <label
-          htmlFor=""
-          className="border-b w-full grid grid-cols-[1fr_auto]  items-center py-2"
-        >
-          <input
-            type="text"
-            className="outline-none border-none"
-            placeholder="Give an email, get the newsletter."
-          />
-          <ArrowRight className="size-4 " />
+        <label className="border-b w-full flex items-center bg-gray-500/50">
+          <input className="flex-1 outline-none border-none" />
+          <ArrowRight className="h-4 w-4" />
         </label>
         <label
           htmlFor="terms"
