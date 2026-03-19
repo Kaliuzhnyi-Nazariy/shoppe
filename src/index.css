@@ -1,9 +1,16 @@
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"); */
 @import "tailwindcss";
 
-/* :root {
+:root {
   font-family: "DM Sans", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
-} */
+
+  --accent: "#A18A68";
+  --dark-gray: "#707070";
+  --gray: "#D8D8D8";
+  --light-gray: "#EFEFEF";
+  --error: "#D82700";
+}
 
 body {
   min-width: 320px;
