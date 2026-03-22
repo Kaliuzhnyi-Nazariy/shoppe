@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductById } from "../../features/products/requests";
 import { ArrowRight, Share2 } from "lucide-react";
 import { ProductAccordion } from "../components/Product/Accordion";
+import { useSelector } from "react-redux";
+import { userLoggedIn } from "../../features/user/selectors";
 
 const Products = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -17,7 +19,35 @@ const Products = () => {
     navigator.clipboard.writeText(window.location.href);
   };
 
-  console.log({ data });
+  // console.log({ data });
+
+  const isUserLoggedIn = useSelector(userLoggedIn);
+
+  const addProduct = () => {
+    if (isUserLoggedIn) {
+      console.log("logged in: ", { productId, quantity: 1 });
+      return;
+    }
+
+    const localStorageData = localStorage.getItem("cart");
+
+    const cart = localStorageData ? JSON.parse(localStorageData) : [];
+
+    const existingProduct = cart.find(
+      (item: { productId: string; quantity: number }) =>
+        item.productId === productId,
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({ productId, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    window.dispatchEvent(new Event("cartUpdate"));
+  };
 
   return (
     <Section>
@@ -44,6 +74,7 @@ const Products = () => {
           <button
             type="button"
             className="w-full border rounded-sm uppercase py-1.5 mt-8"
+            onClick={addProduct}
           >
             add to cart
           </button>
