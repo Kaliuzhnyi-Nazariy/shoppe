@@ -5,11 +5,11 @@
   font-family: "DM Sans", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
 
-  --accent: "#A18A68";
-  --dark-gray: "#707070";
-  --gray: "#D8D8D8";
-  --light-gray: "#EFEFEF";
-  --error: "#D82700";
+  --accent: #a18a68;
+  --dark-gray: #707070;
+  --gray: #d8d8d8;
+  --light-gray: #efefef;
+  --error: #d82700;
 }
 
 body {
