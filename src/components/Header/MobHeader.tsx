@@ -6,13 +6,16 @@ import { useMutation } from "@tanstack/react-query";
 import { signout } from "../../../features/auth/request";
 import { logout } from "../../../features/user/slice";
 import { useAppDispatch } from "../../app/hooks";
+import { useCartCount } from "../../hooks/useGetLocalCart";
 
 const MobHeader = () => {
   const [menuIsOpen, setMenuOpen] = useState(false);
 
   const menuClickFn = () => setMenuOpen((prev) => !prev);
 
-  const count = 5;
+  const count = useCartCount();
+
+  // console.log(count);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -47,14 +50,14 @@ const MobHeader = () => {
           <div className="w-full flex items-center justify-between">
             <img src="/SHOPPE.png" alt="shoppe logo" />
             <div className="flex items-center gap-4">
-              <div className="relative">
+              <Link to="/cart" onClick={menuClickFn} className="relative">
                 {count > 0 && (
                   <div className="absolute top-0 left-full border p-1 rounded-full text-[8px] bg-white flex items-center justify-center -translate-1/2 size-3">
                     {count}
                   </div>
                 )}
                 <ShoppingCart size={18} className="" />
-              </div>
+              </Link>
               <button
                 type="button"
                 // className="absolute top-5 right-5"

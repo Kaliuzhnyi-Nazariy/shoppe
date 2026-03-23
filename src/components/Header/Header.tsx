@@ -1,14 +1,14 @@
 import { ShoppingCart } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import MobHeader from "./MobHeader";
-import { useGetLocalCart } from "../../hooks/useGetLocalCart";
+import { useCartCount } from "../../hooks/useGetLocalCart";
 import Searchbar from "../Searchbar";
 // import { useSelector } from "react-redux";
 // import { userLoggedIn } from "../../../features/user/selectors";
 
 const Header = () => {
   // const isUserLoggedIn = useSelector(userLoggedIn);
-  const count = useGetLocalCart();
+  const count = useCartCount();
 
   const listOfPagesWhereSearchbarIsNotShown = ["/product", "/cart"];
 
@@ -25,14 +25,14 @@ const Header = () => {
           <img src="/SHOPPE.png" alt="shoppe logo" />
         </Link>
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <Link to="/cart" className="relative">
             {count > 0 && (
               <div className="absolute top-0 left-full border p-1 rounded-full text-[8px] bg-white flex items-center justify-center -translate-1/2 size-3">
                 {count}
               </div>
             )}
             <ShoppingCart size={18} className="" />
-          </div>
+          </Link>
 
           <MobHeader />
         </div>
