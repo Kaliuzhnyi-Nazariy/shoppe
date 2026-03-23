@@ -4,7 +4,7 @@ import {
   userLoggedIn,
   userRole,
 } from "../../../features/user/selectors";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 // const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
 //   const role = useSelector(userRole);
@@ -33,16 +33,18 @@ const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const isUserLoggedIn = useSelector(userLoggedIn);
   const isUserLoading = useSelector(userLoading);
 
+  const location = useLocation();
+
   if (isUserLoading) {
     return <div>Loading...</div>;
   }
 
   if (!isUserLoggedIn && isUserLoading) {
-    return <Navigate to="/account/auth" replace />;
+    return <Navigate to="/account/auth" state={{ from: location.pathname }} />;
   }
 
   if (!isUserLoggedIn && !allowedRoles.includes(role!)) {
-    return <Navigate to="/account/auth" replace />;
+    return <Navigate to="/account/auth" state={{ from: location.pathname }} />;
   }
 
   return <Outlet />;

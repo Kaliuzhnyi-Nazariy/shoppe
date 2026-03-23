@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { userLoading, userLoggedIn } from "../../../features/user/selectors";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 // const RestrictedRotue = () => {
 //   const isUserLoggedIn = useSelector(userLoggedIn);
@@ -22,6 +22,8 @@ const RestrictedRotue = () => {
   const isUserLoggedIn = useSelector(userLoggedIn);
   const isUserLoading = useSelector(userLoading);
 
+  const location = useLocation();
+
   // 1. loading first
   if (isUserLoading) {
     return <div>Loading...</div>;
@@ -29,7 +31,7 @@ const RestrictedRotue = () => {
 
   // 2. already logged in → block access
   if (isUserLoggedIn) {
-    return <Navigate to="/account/dashboard" replace />;
+    return <Navigate to={location?.state.from || "/account/dashboard"} />;
   }
 
   // 3. allow access

@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { signin } from "../../../features/auth/request";
 import { type SigninInterface } from "../../../features/auth/interface";
@@ -30,6 +30,7 @@ const SigninForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
 
@@ -40,7 +41,7 @@ const SigninForm = () => {
       console.log(data);
       reset(defaultValues);
       dispatch(getUser());
-      navigate("/account/dashboard");
+      navigate(location?.state.from || "/account/dashboard");
     },
     onError(err: { response: { data: { message: string } } }) {
       setErrorMessage(err.response.data.message);
