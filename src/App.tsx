@@ -95,7 +95,11 @@ function App() {
           </Route>
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:productId" element={<ProductsPage />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            element={<PrivateRoute allowedRoles={["customer", "admin"]} />}
+          >
+            <Route path="/cart" element={<CartPage />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
