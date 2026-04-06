@@ -6,6 +6,10 @@ import { useMutation } from "@tanstack/react-query";
 import { signup } from "../../../features/auth/request";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSignupValidation } from "./authValidation";
+import { useAppDispatch } from "../../app/hooks";
+import { tokenSetting } from "../../../features/user/slice";
+import { getUser } from "../../../features/user/operations";
+import { useLocation, useNavigate } from "react-router";
 
 const SignupForm = () => {
   const defaultValues: SignupInterface = {
@@ -30,12 +34,18 @@ const SignupForm = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { isPending, mutate } = useMutation({
     mutationKey: ["signup"],
     mutationFn: (data: SignupInterface) => signup(data),
     onSuccess(data) {
-      console.log(data);
       reset(defaultValues);
+      dispatch(tokenSetting(data));
+      dispatch(getUser());
+      navigate(location?.state.from || "/account/dashboard");
     },
     onError(err: { response: { data: { message: string } } }) {
       setErrorMessage(err.response.data.message);

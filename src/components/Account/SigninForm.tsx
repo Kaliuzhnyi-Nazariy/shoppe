@@ -9,6 +9,7 @@ import { type SigninInterface } from "../../../features/auth/interface";
 import { signInValidation } from "./authValidation";
 import { useAppDispatch } from "../../app/hooks";
 import { getUser } from "../../../features/user/operations";
+import { tokenSetting } from "../../../features/user/slice";
 
 const SigninForm = () => {
   const defaultValues: SigninInterface = {
@@ -38,8 +39,8 @@ const SigninForm = () => {
     mutationKey: ["signin"],
     mutationFn: (data: SigninInterface) => signin(data),
     onSuccess(data) {
-      console.log(data);
       reset(defaultValues);
+      dispatch(tokenSetting(data));
       dispatch(getUser());
       navigate(location?.state.from || "/account/dashboard");
     },

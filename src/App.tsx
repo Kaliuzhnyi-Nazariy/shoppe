@@ -10,13 +10,14 @@ import {
 // import ProductList from "./components/Product/ProductList";
 import { lazy, useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
-import { getUser } from "../features/user/operations";
+// import { getUser } from "../features/user/operations";
 // import Searchbar from "./components/Searchbar";
 // import Slider from "./components/Slider";
 // import Product from "./components/Product/Product";
 import HeaderAndFooter from "./Layout/HeaderAndFooter";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import RestrictedRotue from "./components/Routes/RestrictedRotue";
+import { refreshUser } from "../features/user/operations";
 
 const AccountPage = lazy(() => import("./pages/Account"));
 const LayoutForMenu = lazy(
@@ -43,7 +44,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(refreshUser());
   }, []);
 
   return (

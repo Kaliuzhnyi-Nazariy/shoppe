@@ -4,18 +4,21 @@ import "./index.css";
 import App from "./App.tsx";
 import QueryLayout from "./Layout/QueryLayout.tsx";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./app/store";
+import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import CartLayout from "./Layout/CartLayout.tsx";
+import { PersistGate } from "redux-persist/integration/react";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryLayout>
       <BrowserRouter>
         <Provider store={store}>
-          <CartLayout>
-            <App />
-          </CartLayout>
+          <PersistGate persistor={persistor} loading={null}>
+            <CartLayout>
+              <App />
+            </CartLayout>
+          </PersistGate>
         </Provider>
       </BrowserRouter>
     </QueryLayout>

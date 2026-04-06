@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IUser, UserState } from "./interface";
-import { getUser } from "./operations";
+import { getUser, refreshUser } from "./operations";
 
 const initialState: UserState = {
   user: {
@@ -23,6 +23,7 @@ const initialState: UserState = {
   isLoading: false,
   error: null,
   isLoggedIn: false,
+  token: null,
 };
 
 const pendingHandler = (state: UserState) => {
@@ -46,6 +47,9 @@ const userSlice = createSlice({
       state.user = initialState.user;
       state.isLoggedIn = false;
     },
+    tokenSetting(state, action: PayloadAction<string | null>) {
+      state.token = action.payload;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -68,8 +72,28 @@ const userSlice = createSlice({
           state.error = action.payload?.message || "Sth went wrong!";
           state.isLoggedIn = false;
         },
+      )
+      .addCase(refreshUser.pending, pendingHandler)
+      .addCase(
+        refreshUser.fulfilled,
+        (state: UserState, action: PayloadAction<IUser>) => {
+          state.user = action.payload;
+          state.isLoading = false;
+          state.isLoggedIn = true;
+        },
+      )
+      .addCase(
+        refreshUser.rejected,
+        (
+          state: UserState,
+          action: PayloadAction<{ message: string } | undefined>,
+        ) => {
+          state.error = action.payload?.message || "Sth went wrong";
+          state.isLoading = false;
+          state.token = null;
+        },
       ),
 });
 
 export const userReducer = userSlice.reducer;
-export const { logout } = userSlice.actions;
+export const { logout, tokenSetting } = userSlice.actions;

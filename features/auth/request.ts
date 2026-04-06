@@ -1,14 +1,20 @@
-import api from "../api/api";
+import api, { clearToken, setToken } from "../api/api";
 import type { SigninInterface, SignupInterface } from "./interface";
 
 export const signin = async (data: SigninInterface) => {
-  return (await api.post("/auth/signin", data)).data;
+  const { token } = (await api.post("/auth/signin", data)).data;
+  setToken(token);
+  return token;
 };
 
 export const signup = async (data: SignupInterface) => {
-  return (await api.post("/auth/signup", data)).data;
+  const { token } = (await api.post("/auth/signup", data)).data;
+
+  setToken(token);
+  return token;
 };
 
 export const signout = async () => {
-  return await api.post("/auth/signout");
+  clearToken();
+  return;
 };

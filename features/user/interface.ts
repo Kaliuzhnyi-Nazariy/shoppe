@@ -9,6 +9,7 @@ export interface UserState {
   isLoading: boolean;
   error: string | null;
   isLoggedIn: boolean;
+  token: string | null;
 }
 
 export interface IUser {
