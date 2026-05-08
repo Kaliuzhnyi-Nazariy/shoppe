@@ -1,15 +1,53 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import Searchbar from "../components/Searchbar";
 import Section from "../components/Section";
+import { getProducts } from "../../features/products/requests";
+import { useQuery } from "@tanstack/react-query";
 
 const NotFound = () => {
+  const [params, setParams] = useSearchParams();
+
+  const searchParam = params.get("search") || "";
+
+  const { data: orderSearchbar = [], isPending: searchPending } = useQuery({
+    queryKey: ["searchProduct", searchParam],
+    queryFn: () => getProducts(searchParam),
+    enabled: searchParam.length > 0,
+  });
+
+  const clickHandle = () => {
+    const url = new URLSearchParams(params);
+    url.delete("search");
+    setParams(url);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      if (e.target.value.trim().length > 0) {
+        params.set("search", e.target.value);
+      } else {
+        params.delete("search");
+      }
+
+      return params;
+    });
+
   return (
     <Section extraStyles="min-h-screen flex flex-col">
       <div className="pt-3 flex items-center flex-col gap-3">
         <Link to={"/"}>
           <img src="/SHOPPE.png" alt="shoppe logo" className="w-25" />
         </Link>
-        <Searchbar />
+        <Searchbar
+          extraStyles="w-full"
+          clickHandle={clickHandle}
+          onChange={onChange}
+          result={orderSearchbar}
+          pending={searchPending}
+          value={searchParam}
+        />{" "}
       </div>
       <div className="flex-1 w-41 flex flex-col items-center justify-center mx-auto">
         <h4 className="text-xl font-bold uppercase ">404 ERROR</h4>
