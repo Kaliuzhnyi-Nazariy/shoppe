@@ -9,3 +9,9 @@ export interface SignupInterface extends SigninInterface {
   displayName: string;
   confirmPassword: string;
 }
+
+export interface ISetPassword {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
