@@ -8,6 +8,8 @@ import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import CartLayout from "./Layout/CartLayout.tsx";
 import { PersistGate } from "redux-persist/integration/react";
+import "keen-slider/keen-slider.min.css";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
           <PersistGate persistor={persistor} loading={null}>
             <CartLayout>
               <App />
+              <Toaster position="top-right" reverseOrder={false} />
             </CartLayout>
           </PersistGate>
         </Provider>

@@ -6,7 +6,8 @@ const HeaderAndFooter = () => {
   return (
     <div className="min-h-screen flex flex-col w-full">
       <Header />
-      <main className="flex-1">
+      <main className="flex flex-col flex-1">
+        {/* <main className="flex-1"> */}
         <Outlet />
       </main>
       <Footer />

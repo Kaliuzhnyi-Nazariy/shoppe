@@ -16,8 +16,19 @@ const CartLayout = ({ children }: { children: React.ReactNode }) => {
 
       if (cart.length > 0) {
         try {
+          // console.log(cart);
+
+          // console.log({
+          //   productId: cart.product.id,
+          //   quantity: cart.quantity,
+          // });
+          // await addMany({
+          //   productId: cart.product.id,
+          //   quantity: cart.quantity,
+          // });
           await addMany(cart);
           queryClient.invalidateQueries({ queryKey: ["getCart"] });
+
           localStorage.removeItem("cart");
         } catch (error) {
           console.error(error);
