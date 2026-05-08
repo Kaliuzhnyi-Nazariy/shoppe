@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import DetailsFormInput from "./DetailsFormInput";
-import StyledButton from "./Address/StyledButton";
+import StyledButton from "../StyledButton";
 
 export interface DetailsForm {
   firstName: string;

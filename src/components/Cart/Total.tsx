@@ -3,7 +3,7 @@ import {
   useNavigate,
 } from "react-router";
 import type { ICartItem } from "../../../features/cart/interface";
-import StyledButton from "../Dashboard/Address/StyledButton";
+import StyledButton from "../StyledButton";
 
 const Total = ({ data }: { data: ICartItem[] }) => {
   const subtotal =

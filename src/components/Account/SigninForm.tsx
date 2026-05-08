@@ -11,7 +11,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { getUser } from "../../../features/user/operations";
 import { tokenSetting } from "../../../features/user/slice";
 import Input from "../Input";
-import StyledButton from "../Dashboard/Address/StyledButton";
+import StyledButton from "../StyledButton";
 import { successToast } from "../toast";
 
 const SigninForm = () => {

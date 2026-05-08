@@ -1,6 +1,6 @@
 import type React from "react";
 import type { ICartItem } from "../../../features/cart/interface";
-import StyledButton from "../Dashboard/Address/StyledButton";
+import StyledButton from "../StyledButton";
 import type { SetStateAction } from "react";
 import type { PaymentMethods } from "../../pages/Checkout";
 

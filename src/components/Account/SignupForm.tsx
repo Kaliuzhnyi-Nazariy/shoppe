@@ -7,7 +7,7 @@ import { signup } from "../../../features/auth/request";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSignupValidation } from "../../validation";
 import Input from "../Input";
-import StyledButton from "../Dashboard/Address/StyledButton";
+import StyledButton from "../StyledButton";
 import { useAppDispatch } from "../../app/hooks";
 import { tokenSetting } from "../../../features/user/slice";
 import { getUser } from "../../../features/user/operations";
