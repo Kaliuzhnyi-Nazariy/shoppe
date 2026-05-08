@@ -1,21 +1,45 @@
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Searchbar from "../Searchbar";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { signout } from "../../../features/auth/request";
 import { logout } from "../../../features/user/slice";
 import { useAppDispatch } from "../../app/hooks";
-import { useCartCount } from "../../hooks/useGetLocalCart";
+import { useCart } from "../../hooks/useGetLocalCart";
+import { getCart } from "../../../features/cart/requests";
+import { useSelector } from "react-redux";
+import { userLoggedIn, userRole } from "../../../features/user/selectors";
+import type { ICartItem } from "../../../features/cart/interface";
+import { getProducts } from "../../../features/products/requests";
+import { errorToast, successToast } from "../toast";
 
 const MobHeader = () => {
   const [menuIsOpen, setMenuOpen] = useState(false);
 
   const menuClickFn = () => setMenuOpen((prev) => !prev);
+  const isAuthenticated = useSelector(userLoggedIn);
 
-  const count = useCartCount();
+  // const count = useCartCount();
 
   // console.log(count);
+
+  const { data, isPending: fetchingCart } = useQuery({
+    queryKey: ["getCart", isAuthenticated],
+    queryFn: getCart,
+    enabled: isAuthenticated,
+  });
+
+  const { cart } = useCart();
+
+  const products: ICartItem[] =
+    isAuthenticated && !fetchingCart && data ? data.items : cart ?? [];
+
+  const activeProducts = products.filter(
+    (p: ICartItem) => p.product && !p.product.isArchived,
+  );
+
+  const count = activeProducts.reduce((sum, item) => (sum += item.quantity), 0);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -31,11 +55,49 @@ const MobHeader = () => {
       setTimeout(() => {
         navigate("/", { replace: true });
       }, 0);
+
+      successToast("You are logged out!");
+    },
+    onError(err) {
+      const error = err as { response?: { data?: { message: string } } };
+      errorToast(error.response?.data?.message || "Something went wrong!");
     },
   });
 
+  const role = useSelector(userRole);
+
+  const [params, setParams] = useSearchParams();
+
+  const searchParam = params.get("search") || "";
+
+  const { data: orderSearchbar = [], isPending: searchPending } = useQuery({
+    queryKey: ["searchProduct", searchParam],
+    queryFn: () => getProducts(searchParam),
+    enabled: searchParam.length > 0,
+  });
+
+  const clickHandle = () => {
+    const url = new URLSearchParams(params);
+    url.delete("search");
+    setParams(url);
+    menuClickFn();
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setParams((prev) => {
+      const params = new URLSearchParams(prev);
+
+      if (e.target.value.trim().length > 0) {
+        params.set("search", e.target.value);
+      } else {
+        params.delete("search");
+      }
+
+      return params;
+    });
+
   return (
-    <div>
+    <div className="lg:hidden">
       <button type="button" className="flex" onClick={() => menuClickFn()}>
         {/* {menuIsOpen ? <X className="size-4" /> : <Menu className="w-5 h-4.5" />} */}
         <Menu className="w-5 h-4.5" />
@@ -48,16 +110,20 @@ const MobHeader = () => {
       >
         <div className="w-full flex flex-col gap-2 items-center justify-between">
           <div className="w-full flex items-center justify-between">
-            <img src="/SHOPPE.png" alt="shoppe logo" />
+            <Link to="/" onClick={menuClickFn}>
+              <img src="/SHOPPE.png" alt="shoppe logo" />
+            </Link>
             <div className="flex items-center gap-4">
-              <Link to="/cart" onClick={menuClickFn} className="relative">
-                {count > 0 && (
-                  <div className="absolute top-0 left-full border p-1 rounded-full text-[8px] bg-white flex items-center justify-center -translate-1/2 size-3">
-                    {count}
-                  </div>
-                )}
-                <ShoppingCart size={18} className="" />
-              </Link>
+              {role === "customer" && (
+                <Link to="/cart" onClick={menuClickFn} className="relative">
+                  {count > 0 && (
+                    <div className="absolute top-0 left-full border p-1 rounded-full text-[8px] bg-white flex items-center justify-center -translate-1/2 size-3">
+                      {count}
+                    </div>
+                  )}
+                  <ShoppingCart size={18} className="" />
+                </Link>
+              )}
               <button
                 type="button"
                 // className="absolute top-5 right-5"
@@ -68,7 +134,14 @@ const MobHeader = () => {
             </div>
           </div>
 
-          <Searchbar />
+          <Searchbar
+            extraStyles="w-full"
+            clickHandle={clickHandle}
+            onChange={onChange}
+            result={orderSearchbar}
+            pending={searchPending}
+            value={searchParam}
+          />
         </div>
 
         <ul className="mt-10 flex flex-col gap-6">
@@ -92,15 +165,17 @@ const MobHeader = () => {
               My account
             </Link>
           </li>
-          <li className="w-full">
-            <button
-              type="button"
-              onClick={() => mutate()}
-              className="w-full text-start cursor-pointer"
-            >
-              {isPending ? "Loading..." : "Logout"}
-            </button>
-          </li>
+          {isAuthenticated && (
+            <li className="w-full">
+              <button
+                type="button"
+                onClick={() => mutate()}
+                className="w-full text-start cursor-pointer"
+              >
+                {isPending ? "Loading..." : "Logout"}
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </div>
