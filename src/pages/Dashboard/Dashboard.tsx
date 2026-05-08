@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import { userFirstName, userLastName } from "../../../features/user/selectors";
 import { Link } from "react-router";
+import Section from "../../components/Section";
 
 const Dashboard = () => {
   const userFirstNameValue = useSelector(userFirstName);
   const userLastNameValue = useSelector(userLastName);
 
   return (
-    <>
+    <Section changePaddings="min-[1024px]:px-24">
       <p>
         Hello, {userFirstNameValue} {userLastNameValue && userLastNameValue}
       </p>
@@ -25,7 +26,7 @@ const Dashboard = () => {
           password and account details.
         </Link>
       </article>
-    </>
+    </Section>
   );
 };
 
