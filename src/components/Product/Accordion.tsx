@@ -16,7 +16,7 @@ export const ProductAccordion = ({
   description: string;
 }) => {
   return (
-    <div>
+    <div className="min-[1440px]:hidden">
       <Accordion
         elevation={0}
         square
