@@ -20,6 +20,7 @@ export interface IUser {
   role: "admin" | "customer" | null;
   password: string;
   email: string;
+  isPasswordSet: boolean;
 
   orders: [];
   addresses: [];

@@ -15,6 +15,7 @@ const initialState: UserState = {
     role: null,
     password: "",
     email: "",
+    isPasswordSet: false,
 
     orders: [],
     addresses: [],
@@ -46,6 +47,7 @@ const userSlice = createSlice({
     logout(state) {
       state.user = initialState.user;
       state.isLoggedIn = false;
+      state.token = null;
     },
     tokenSetting(state, action: PayloadAction<string | null>) {
       state.token = action.payload;
