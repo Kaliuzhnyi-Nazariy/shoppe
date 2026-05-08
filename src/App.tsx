@@ -18,6 +18,7 @@ import HeaderAndFooter from "./Layout/HeaderAndFooter";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import RestrictedRotue from "./components/Routes/RestrictedRotue";
 import { refreshUser } from "../features/user/operations";
+import Home from "./pages/Home";
 
 const AccountPage = lazy(() => import("./pages/Account"));
 const LayoutForMenu = lazy(
@@ -36,9 +37,20 @@ const DashboardAccountDetailsPage = lazy(
 );
 const ShopPage = lazy(() => import("./pages/Shop"));
 const ProductsPage = lazy(() => import("./pages/Product"));
+const CreateProductPage = lazy(() => import("./pages/CreateProduct"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
+const UpdateProductPage = lazy(() => import("./pages/UpdateProduct"));
+
 const CartPage = lazy(() => import("./pages/Cart"));
+const CheckoutPage = lazy(() => import("./pages/Checkout"));
+const SetPasswordPage = lazy(() => import("./pages/SetPassword"));
+const ForgetPage = lazy(() => import("./pages/ForgetPassword"));
+
+const TrackOrderPage = lazy(() => import("./pages/TrackOrder"));
+
+const LogoutPage = lazy(() => import("./pages/Logout"));
+// const SearchOrderPage = lazy(() => import("./pages/SearchOrder"));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -51,15 +63,7 @@ function App() {
     <>
       <Routes>
         <Route element={<HeaderAndFooter />}>
-          <Route
-            path="/"
-            element={
-              <div className="bg-(--accent)">
-                <h1 className="text-(--dark-gray)">Test</h1>
-                <p>hello</p>
-              </div>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/account">
             <Route element={<RestrictedRotue />}>
               <Route path="auth" element={<AccountPage />} />
@@ -91,15 +95,27 @@ function App() {
                   path="dashboard/details"
                   element={<DashboardAccountDetailsPage />}
                 />
+                <Route path="dashboard/logout" element={<LogoutPage />} />
               </Route>
             </Route>
           </Route>
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:productId" element={<ProductsPage />} />
-          <Route
+          {/* <Route
             element={<PrivateRoute allowedRoles={["customer", "admin"]} />}
           >
             <Route path="/cart" element={<CartPage />} />
+            </Route> */}
+          {/* <Route path="/order/search" element={<SearchOrderPage />} /> */}
+          <Route path="/order/track" element={<TrackOrderPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/set/password" element={<SetPasswordPage />} />
+          <Route path="/forget" element={<ForgetPage />} />
+
+          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+            <Route path="/product/create" element={<CreateProductPage />} />
+            <Route path="/product/update/*" element={<UpdateProductPage />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
