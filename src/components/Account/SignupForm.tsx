@@ -1,15 +1,18 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import type { SignupInterface } from "../../../features/auth/interface";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signup } from "../../../features/auth/request";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSignupValidation } from "./authValidation";
+import { userSignupValidation } from "../../validation";
+import Input from "../Input";
+import StyledButton from "../Dashboard/Address/StyledButton";
 import { useAppDispatch } from "../../app/hooks";
 import { tokenSetting } from "../../../features/user/slice";
 import { getUser } from "../../../features/user/operations";
 import { useLocation, useNavigate } from "react-router";
+import { successToast } from "../toast";
 
 const SignupForm = () => {
   const defaultValues: SignupInterface = {
@@ -21,13 +24,17 @@ const SignupForm = () => {
     lastName: "",
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<SignupInterface>({
-    defaultValues,
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset,
+  // } = useForm<SignupInterface>({
+  //   mode: "all",
+  //   resolver: zodResolver(userSignupValidation),
+  // });
+
+  const methods = useForm<SignupInterface>({
     mode: "all",
     resolver: zodResolver(userSignupValidation),
   });
@@ -38,14 +45,18 @@ const SignupForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+
   const { isPending, mutate } = useMutation({
     mutationKey: ["signup"],
     mutationFn: (data: SignupInterface) => signup(data),
     onSuccess(data) {
-      reset(defaultValues);
+      methods.reset(defaultValues);
       dispatch(tokenSetting(data));
       dispatch(getUser());
+      queryClient.invalidateQueries({ queryKey: ["getCart"] });
       navigate(location?.state.from || "/account/dashboard");
+      successToast("Welcome!");
     },
     onError(err: { response: { data: { message: string } } }) {
       setErrorMessage(err.response.data.message);
@@ -80,13 +91,66 @@ const SignupForm = () => {
     }
   };
 
+  const formInputs = [
+    { name: "firstName", label: "First name" },
+    { name: "lastName", label: "Last name" },
+    { name: "displayName", label: "Display name" },
+    { name: "email", type: "email", label: "Email" },
+  ];
+
   return (
-    <>
+    <FormProvider {...methods}>
       <form
-        className="mt-18 flex flex-col gap-6"
-        onSubmit={handleSubmit(submit)}
+        className="mt-18 flex flex-col gap-6 text-xs lg:text-[16px]"
+        onSubmit={methods.handleSubmit(submit)}
       >
-        <div className="">
+        {formInputs.map((fi) => {
+          return (
+            <Input
+              key={fi.name}
+              name={fi.name}
+              label={fi.label}
+              type={fi.type}
+              disabled={isPending}
+            />
+          );
+        })}
+        <div className="group relative">
+          <Input<SignupInterface>
+            label="Password"
+            name="password"
+            type={passwordType}
+            disabled={isPending}
+          />
+
+          <button
+            type="button"
+            className="hidden group-focus-within:block absolute top-0 right-0"
+            onClick={() => changePasswordType()}
+            disabled={isPending}
+          >
+            {passwordType === "text" ? <Eye /> : <EyeClosed />}
+          </button>
+        </div>
+
+        <div className="group relative">
+          <Input<SignupInterface>
+            label="Confirm password"
+            name="confirmPassword"
+            type={confirmPasswordType}
+            disabled={isPending}
+          />
+
+          <button
+            type="button"
+            className="hidden group-focus-within:block absolute top-0 right-0"
+            onClick={() => changeConfirmPasswordType()}
+            disabled={isPending}
+          >
+            {confirmPasswordType === "text" ? <Eye /> : <EyeClosed />}
+          </button>
+        </div>
+        {/* <div className="">
           <input
             type="firstName"
             placeholder="First name"
@@ -142,53 +206,6 @@ const SignupForm = () => {
           )}
         </div>
 
-        <div className="group relative">
-          <input
-            type={passwordType}
-            placeholder="Password"
-            {...register("password")}
-            className="border-b border-b-(--light-gray) placeholder:text-(--dark-gray) outline-none pb-1.25 w-full relative"
-            disabled={isPending}
-          />
-          {errors.password && (
-            <p className="text-(--error) text-[8px] mt-2">
-              {errors.password.message}
-            </p>
-          )}
-
-          <button
-            type="button"
-            className="hidden group-focus-within:block absolute top-0 right-0"
-            onClick={() => changePasswordType()}
-            disabled={isPending}
-          >
-            {passwordType === "text" ? <Eye /> : <EyeClosed />}
-          </button>
-        </div>
-
-        <div className="group relative">
-          <input
-            type={confirmPasswordType}
-            placeholder="Confirm password"
-            {...register("confirmPassword")}
-            className="border-b border-b-(--light-gray) placeholder:text-(--dark-gray) outline-none pb-1.25 w-full relative"
-            disabled={isPending}
-          />
-          {errors.confirmPassword && (
-            <p className="text-(--error) text-[8px] mt-2">
-              {errors.confirmPassword.message}
-            </p>
-          )}
-
-          <button
-            type="button"
-            className="hidden group-focus-within:block absolute top-0 right-0"
-            onClick={() => changeConfirmPasswordType()}
-            disabled={isPending}
-          >
-            {confirmPasswordType === "text" ? <Eye /> : <EyeClosed />}
-          </button>
-        </div>
 
         <button
           className={
@@ -199,9 +216,16 @@ const SignupForm = () => {
           {isPending ? "Loading..." : "sign up"}
         </button>
 
-        {errorMessage && <p className="text-(--error)">{errorMessage}</p>}
+        */}
+        <StyledButton
+          text="SIGN UP"
+          isValid={methods.formState.isValid}
+          pending={isPending}
+          extraStyles="w-full py-1.5 lg:py-4"
+        />
+        {errorMessage && <p className="text-(--error) mt-4">{errorMessage}</p>}
       </form>
-    </>
+    </FormProvider>
   );
 };
 

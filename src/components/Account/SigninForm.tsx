@@ -1,15 +1,18 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signin } from "../../../features/auth/request";
 import { type SigninInterface } from "../../../features/auth/interface";
-import { signInValidation } from "./authValidation";
+import { signInValidation } from "../../validation";
 import { useAppDispatch } from "../../app/hooks";
 import { getUser } from "../../../features/user/operations";
 import { tokenSetting } from "../../../features/user/slice";
+import Input from "../Input";
+import StyledButton from "../Dashboard/Address/StyledButton";
+import { successToast } from "../toast";
 
 const SigninForm = () => {
   const defaultValues: SigninInterface = {
@@ -17,12 +20,7 @@ const SigninForm = () => {
     password: "",
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<SigninInterface>({
+  const methods = useForm<SigninInterface>({
     defaultValues,
     mode: "all",
     resolver: zodResolver(signInValidation),
@@ -35,14 +33,18 @@ const SigninForm = () => {
 
   const dispatch = useAppDispatch();
 
+  const queryClient = useQueryClient();
+
   const { isPending, mutate } = useMutation({
     mutationKey: ["signin"],
     mutationFn: (data: SigninInterface) => signin(data),
     onSuccess(data) {
-      reset(defaultValues);
+      methods.reset(defaultValues);
       dispatch(tokenSetting(data));
       dispatch(getUser());
-      navigate(location?.state.from || "/account/dashboard");
+      queryClient.invalidateQueries({ queryKey: ["getCart"] });
+      navigate(location?.state?.from || "/account/dashboard");
+      successToast("Welcome!");
     },
     onError(err: { response: { data: { message: string } } }) {
       setErrorMessage(err.response.data.message);
@@ -65,34 +67,26 @@ const SigninForm = () => {
     }
   };
 
-  return (
-    <>
-      <form className="mt-22" onSubmit={handleSubmit(submit)}>
-        <input
-          type="email"
-          placeholder="Email"
-          {...register("email")}
-          className="border-b border-b-(--light-gray) placeholder:text-(--dark-gray) outline-none pb-1.25 w-full"
-        />
-        {errors.email && (
-          <p className="text-(--error) text-[8px] mt-2">
-            {errors.email.message}
-          </p>
-        )}
+  // const emailValue = watch("email");
+  // const passwordValue = watch("password");
 
-        <div className="group mt-12 relative">
-          <input
-            type={passwordType}
-            placeholder="Password"
-            {...register("password")}
-            className="border-b border-b-(--light-gray) placeholder:text-(--dark-gray) outline-none pb-1.25 w-full relative"
+  return (
+    <FormProvider {...methods}>
+      <form className="mt-22 " onSubmit={methods.handleSubmit(submit)}>
+        <Input<SigninInterface>
+          label="Email"
+          name="email"
+          disabled={isPending}
+          type="email"
+        />
+
+        <div className="group mt-11.5 relative  ">
+          <Input<SigninInterface>
+            label="Password"
+            name="password"
             disabled={isPending}
+            type={passwordType}
           />
-          {errors.password && (
-            <p className="text-(--error) text-[8px] mt-2">
-              {errors.password.message}
-            </p>
-          )}
 
           <button
             type="button"
@@ -100,26 +94,28 @@ const SigninForm = () => {
             onClick={() => changePasswordType()}
             disabled={isPending}
           >
-            {passwordType === "text" ? <Eye /> : <EyeClosed />}
+            {passwordType === "text" ? (
+              <Eye className="size-4" />
+            ) : (
+              <EyeClosed className="size-4" />
+            )}
           </button>
         </div>
 
-        <button
-          className={
-            "uppercase mt-5.5 w-full py-1.5 bg-black text-white rounded-sm disabled:opacity-50"
-          }
-          disabled={isPending}
-        >
-          {isPending ? "Loading..." : "sign in"}
-        </button>
+        <StyledButton
+          text="SIGN IN"
+          extraStyles="w-full py-1.5 mt-10 lg:py-4"
+          isValid={methods.formState.isValid}
+          pending={isPending}
+        />
 
-        {errorMessage && <p className="text-(--error)">{errorMessage}</p>}
+        {errorMessage && <p className="text-(--error) mt-2">{errorMessage}</p>}
       </form>
 
-      <Link to="/" className="mt-4 flex justify-center">
+      <Link to="/forget" className="mt-4 lg:mt-3 flex justify-center">
         Have you forgotten your password?
       </Link>
-    </>
+    </FormProvider>
   );
 };
 
