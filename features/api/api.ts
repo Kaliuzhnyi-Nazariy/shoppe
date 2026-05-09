@@ -2,8 +2,9 @@ import axios from "axios";
 import { store } from "../../src/app/store";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001/api",
+  // baseURL: "http://localhost:3001/api",
   // withCredentials: true,
+  baseURL: "https://shoppe-backend-4n9t.onrender.com/api",
 });
 
 export const setToken = (token: string) => {
