@@ -83,7 +83,8 @@ const AddPhotoAccordion = ({
   //   console.log({ isMax });
 
   return (
-    <div className="min-[1440px]:flex min-[1440px]:flex-col">
+    // <div className="min-[1440px]:flex min-[1440px]:flex-col">
+    <div className="min-[1440px]:flex min-[1440px]:flex-col w-full h-80 min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150">
       <div className="navigation-wrapper relative min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150 ">
         {/* <div className="navigation-wrapper relative min-[1440px]:w-150 "> */}
         {/* <div className="navigation-wrapper flex relative"> */}
@@ -124,11 +125,11 @@ const AddPhotoAccordion = ({
           {!isMax && (
             <div
               key="upload"
-              className="keen-slider__slide flex items-center justify-center"
+              className="keen-slider__slide flex items-center justify-center h-80 w-full! min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150 "
             >
               <label
                 htmlFor="photos"
-                className="w-full h-80 min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150 border border-dashed border-(--dark-gray) rounded-sm flex flex-col items-center justify-center"
+                className="w-full! h-80 min-[1024px]:min-w-125! min-[1024px]:h-110 min-[1440px]:min-w-150! border border-dashed border-(--dark-gray) rounded-sm flex flex-col items-center justify-center"
               >
                 <p>Add photos (max 10 files)</p>
                 <p>(optional)</p>
