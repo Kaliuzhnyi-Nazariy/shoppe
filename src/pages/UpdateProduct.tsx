@@ -20,6 +20,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { v4 } from "uuid";
 import { errorToast, successToast } from "../components/toast";
+import { OrbitProgress } from "react-loading-indicators";
 
 const UpdateProduct = () => {
   const link = window.location.pathname.split("/");
@@ -223,7 +224,9 @@ const UpdateProduct = () => {
   return (
     <Section extraStyles="pb-25">
       {fetchingProduct ? (
-        <p>Loading...</p>
+        <div className="flex flex-col items-center justify-center">
+          <OrbitProgress color="var(--gray)" size="small" />
+        </div>
       ) : (
         <FormProvider {...methods}>
           <form

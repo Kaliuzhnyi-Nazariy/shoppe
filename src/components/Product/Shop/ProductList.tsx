@@ -5,6 +5,7 @@ import type { IProduct } from "../../../../features/products/interface.ts";
 import { useSelector } from "react-redux";
 import { userRole } from "../../../../features/user/selectors.ts";
 import { Link } from "react-router";
+import { OrbitProgress } from "react-loading-indicators";
 
 const ProductList = ({
   extraStyle = "",
@@ -42,7 +43,10 @@ const ProductList = ({
   return (
     <div className={"items-center justify-center " + extraStyle}>
       {isPending ? (
-        "Loading..."
+        // "Loading..."
+        <div className="flex flex-col items-center justify-center">
+          <OrbitProgress color="var(--gray)" size="small" />
+        </div>
       ) : (
         <>
           {data && data.length > 0 && (

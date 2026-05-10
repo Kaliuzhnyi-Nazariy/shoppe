@@ -3,6 +3,7 @@ import NoInList from "../../components/Dashboard/NoInList";
 import { useQuery } from "@tanstack/react-query";
 import { getDownloads } from "../../../features/download/request";
 import DownloadList from "../../components/Dashboard/Download/DownloadList";
+import { OrbitProgress } from "react-loading-indicators";
 
 const Downloads = () => {
   // const downloads = [];
@@ -15,7 +16,9 @@ const Downloads = () => {
   return (
     <Section changePaddings="min-[1024px]:px-24">
       {isFetching ? (
-        <p>Loading...</p>
+        <div className="flex flex-col items-center justify-center">
+          <OrbitProgress color="var(--gray)" size="small" />
+        </div>
       ) : (
         <>
           {downloads.length === 0 ? (
