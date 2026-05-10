@@ -25,7 +25,7 @@ const Home = () => {
             : ""
         }`}
       >
-        <CategoriesSlider />
+        <CategoriesSlider isPending={isFetching} />
         <ProductList data={data} isPending={isFetching} extraStyle="mt-4" />
         <NoProducts productLength={data.length} isPending={isFetching} />
       </div>
