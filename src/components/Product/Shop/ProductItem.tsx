@@ -11,7 +11,7 @@ const ProductItem = ({
   return (
     <Link
       to={"/product/" + product.id}
-      className="rounded-sm relative text-xs block min-w-34 max-w-94  justify-self-center lg:text-xl"
+      className="rounded-sm relative text-xs min-w-34 max-w-94  justify-self-center lg:text-xl flex flex-col items-center "
     >
       {product?.photos?.length > 0 ? (
         <>
