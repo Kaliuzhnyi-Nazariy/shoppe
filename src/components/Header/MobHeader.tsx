@@ -114,7 +114,7 @@ const MobHeader = () => {
               <img src="/SHOPPE.png" alt="shoppe logo" />
             </Link>
             <div className="flex items-center gap-4">
-              {role === "customer" && (
+              {role !== "admin" && (
                 <Link to="/cart" onClick={menuClickFn} className="relative">
                   {count > 0 && (
                     <div className="absolute top-0 left-full border p-1 rounded-full text-[8px] bg-white flex items-center justify-center -translate-1/2 size-3">
