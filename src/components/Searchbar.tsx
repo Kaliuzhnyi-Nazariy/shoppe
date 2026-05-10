@@ -38,7 +38,9 @@ const Searchbar = ({
             {value.length > 0 && (
               <>
                 {pending ? (
-                  <OrbitProgress color="var(--gray)" size="small" />
+                  <div className="flex flex-col items-center justify-center">
+                    <OrbitProgress color="var(--gray)" size="small" />
+                  </div>
                 ) : (
                   <div className="p-2">
                     {result.length > 0 ? (

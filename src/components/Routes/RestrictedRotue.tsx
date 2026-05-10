@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { userLoading, userLoggedIn } from "../../../features/user/selectors";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { OrbitProgress } from "react-loading-indicators";
 
 // const RestrictedRotue = () => {
 //   const isUserLoggedIn = useSelector(userLoggedIn);
@@ -26,7 +27,11 @@ const RestrictedRotue = () => {
 
   // 1. loading first
   if (isUserLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <OrbitProgress color="var(--gray)" size="small" />
+      </div>
+    );
   }
 
   // 2. already logged in → block access

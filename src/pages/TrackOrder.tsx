@@ -142,7 +142,9 @@ const TrackOrder = () => {
 
       <div className="flex-1 flex flex-col items-center justify-center mb-6">
         {isPending && orderId ? (
-          <OrbitProgress color="var(--gray)" />
+          <div className="flex flex-col items-center justify-center">
+            <OrbitProgress color="var(--gray)" size="small" />
+          </div>
         ) : order ? (
           <>
             <MobTrack

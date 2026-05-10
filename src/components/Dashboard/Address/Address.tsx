@@ -2,6 +2,7 @@ import { useState } from "react";
 import Form from "./Form/Form";
 import type { IAddress } from "../../../../features/address/interface";
 import { AddressItem } from "./AddressItem";
+import { OrbitProgress } from "react-loading-indicators";
 // import { useQuery } from "@tanstack/react-query";
 // import { getAddresses } from "../../../../features/address/request";
 
@@ -32,7 +33,9 @@ const Address = ({
       ) : (
         <>
           {addressesPending ? (
-            "loading..."
+            <div className="flex flex-col items-center justify-center">
+              <OrbitProgress color="var(--gray)" size="small" />
+            </div>
           ) : (
             <>
               {addresses.length === 0 ? (

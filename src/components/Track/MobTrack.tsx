@@ -60,7 +60,9 @@ const MobTrack = ({
                     <StyledButton text="CANCEL ORDER" />
                     )} */}
       {cancelingOrder || updatingOrderStatus ? (
-        <OrbitProgress color="var(--gray)" />
+        <div className="flex flex-col items-center justify-center">
+          <OrbitProgress color="var(--gray)" size="small" />
+        </div>
       ) : (
         <>
           {role && role === "admin" && (

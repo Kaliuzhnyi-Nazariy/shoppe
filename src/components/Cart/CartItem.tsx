@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { userLoggedIn } from "../../../features/user/selectors";
 import { useCart } from "../../hooks/useGetLocalCart";
 import { errorToast, successToast } from "../toast";
+import { OrbitProgress } from "react-loading-indicators";
 
 const CartItem = ({
   item,
@@ -194,12 +195,12 @@ const CartItem = ({
     }
   };
 
-  console.log({ item });
-
   return (
     <li className="flex gap-2 relative">
       {isDeleting ? (
-        "deleting..."
+        <div className="flex flex-col items-center justify-center">
+          <OrbitProgress color="var(--gray)" size="small" />
+        </div>
       ) : (
         <>
           <button
@@ -233,7 +234,9 @@ const CartItem = ({
             <div className="flex gap-2 text-(--dark-gray) lg:p-3 lg:bg-(--light-gray) lg:h-13.5 lg:items-center">
               <p className="lg:hidden">QTY: </p>
               {isAdding || isReducing ? (
-                "Loading..."
+                <div className="flex flex-col items-center justify-center">
+                  <OrbitProgress color="var(--gray)" size="small" />
+                </div>
               ) : (
                 <div className="flex items-center gap-2 lg:items-start lg:gap-6">
                   <button
