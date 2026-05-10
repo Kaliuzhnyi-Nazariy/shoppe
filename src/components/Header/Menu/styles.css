@@ -1,7 +1,7 @@
 .navigation-wrapper {
   position: relative;
   width: 100%;
-  height: 44px;
+  /* height: 44px; */
 }
 
 .dots {
@@ -35,6 +35,8 @@
 }
 
 .keen-slider__slide {
-  min-width: fit-content !important;
-  max-width: fit-content !important;
+  /* min-width: fit-content !important;
+  max-width: fit-content !important; */
+  min-width: max-content;
+  max-width: max-content;
 }
