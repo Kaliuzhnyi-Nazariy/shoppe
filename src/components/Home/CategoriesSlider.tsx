@@ -1,6 +1,6 @@
 import { useKeenSlider } from "keen-slider/react";
 
-const CategoriesSlider = () => {
+const CategoriesSlider = ({ isPending }: { isPending: boolean }) => {
   const [ref] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
@@ -34,7 +34,12 @@ const CategoriesSlider = () => {
   //   );
 
   return (
-    <div ref={ref} className="keen-slider text-xs min-[1024px]:hidden">
+    <div
+      ref={ref}
+      className={
+        "keen-slider text-xs min-[1024px]:hidden " + isPending && "hidden"
+      }
+    >
       {categories.map((c, idx) => (
         <div
           key={idx}
