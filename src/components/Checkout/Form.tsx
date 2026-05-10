@@ -63,7 +63,7 @@ const Form = ({ prefix }: { prefix: "billing" | "shipping" }) => {
     },
     {
       name: `${prefix}.email`,
-      label: "email*",
+      label: "Email*",
       // value: values?.email || "",
       // error: errors?.[prefix]?.email,
     },
