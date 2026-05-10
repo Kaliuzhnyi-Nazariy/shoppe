@@ -11,7 +11,7 @@ const ProductItem = ({
   return (
     <Link
       to={"/product/" + product.id}
-      className="rounded-sm relative text-xs min-w-34 max-w-94  justify-self-center lg:text-xl flex flex-col items-center "
+      className="rounded-sm relative text-xs min-w-34 max-w-94  justify-self-center lg:text-xl flex flex-col items-center text-center "
     >
       {product?.photos?.length > 0 ? (
         <>
@@ -37,7 +37,7 @@ const ProductItem = ({
         <div
           className={`absolute size-34 ${
             isShop ? "lg:size-75" : "lg:size-94"
-          } top-0 left-0 flex items-center justify-center bg-white/50`}
+          } top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-white/50`}
         >
           <p>Out of stock</p>
         </div>
