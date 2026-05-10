@@ -1,73 +1,223 @@
-# React + TypeScript + Vite
+# SHOPPE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern e-commerce frontend application focused on real-world UI architecture, authentication flows, cart synchronization, and responsive user experience.
 
-Currently, two official plugins are available:
+## LIVE DEMO
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://shoppe-8f1f.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# TEST ACCOUNTS
 
-## Expanding the ESLint configuration
+## Admin
+email: admin@email.com  
+password: Password1
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Customer
+email: user@email.com  
+password: Password1
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# FEATURES
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Authentication & Authorization
+- JWT-based authentication flow
+- Role-based UI rendering
+- Protected admin functionality
+- Persistent authentication state
+- Conditional rendering based on user role and authorization status
+
+## Product Management
+- Create/update/archive products
+- Product image upload support
+- Product filtering
+- Search functionality
+- Responsive product gallery
+
+## Cart & Checkout
+- Add/remove/update cart items
+- Cart persistence across authentication states
+- Guest cart synchronization after login/signup
+- Checkout validation using Zod + React Hook Form
+- Address and shipping information handling
+- Order notes support
+
+## Orders
+- Order tracking by ID
+- Order cancellation flow
+- Downloadable receipts
+
+## UI/UX
+- Fully responsive design
+- Mobile navigation
+- Product sliders using Keen Slider
+- Loading and error states
+- Conditional UI for admin/customer flows
+
+---
+
+# TECH STACK
+
+## Frontend
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Redux Toolkit
+- TanStack Query
+- React Hook Form
+- Zod
+- Keen Slider
+- MUI
+
+## Services & Infrastructure
+- Cloudinary (image hosting and management)
+- Vercel (frontend deployment)
+
+---
+
+# ARCHITECTURE DECISIONS
+
+## State Management
+
+Redux Toolkit is used for:
+- authentication state
+- global UI state
+- cart synchronization
+
+TanStack Query handles:
+- server state
+- caching
+- async request lifecycle
+- refetching and invalidation
+
+This separation helps avoid mixing client UI state with server state.
+
+---
+
+## Cart Synchronization
+
+Guest users can add products to cart before authentication.
+
+After login/signup:
+- guest cart is synchronized
+- existing quantities are merged
+- UI state remains consistent
+
+This mimics real-world e-commerce behavior.
+
+---
+
+## Validation Strategy
+
+Zod schemas are used together with React Hook Form to provide:
+- scalable form validation
+- predictable form behavior
+- safer request payload handling
+
+---
+
+# PROJECT STRUCTURE
+
+```bash
+src/
+├── components/
+├── pages/
+├── redux/
+├── services/
+├── hooks/
+├── validation/
+├── layouts/
+└── utils/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# SCREENSHOTS
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Home Page
+![PC Home page](images/image.png)
+![Mob Home page](images/image-1.png)
+
+## Product Page
+![PC Product page](images/image-3.png)
+![Mob Product page](images/image-2.png)
+
+## Dashboard
+![PC Dashboard](images/image-4.png)
+![Mob Dashboard](images/image-5.png)
+
+## Mobile UI
+![PC navigation](images/image-7.png)
+![Mob navigation](images/image-6.png)
+
+## Shop Page
+![PC shop page](images/image-8.png)
+![Mob shop page showing admin panel](images/image-9.png)
+
+## Cart Page
+![PC Cart page](images/image-11.png)
+![Mob Cart page](images/image-10.png)
+
+## Checkout Page
+![Mobile Checkout page 1](images/image-12.png)
+![Mobile Checkout page 2](images/image-13.png)
+
+![PC Checkout page](images/image-14.png)
+
+---
+
+# HOW TO RUN LOCALLY
+
+```bash
+npm install
+npm run dev
 ```
+
+---
+
+# ENVIRONMENT VARIABLES
+
+Example `.env`:
+
+```env
+VITE_API_URL=
+VITE_CLOUDINARY_CLOUD_NAME=
+```
+
+---
+
+# FUTURE IMPROVEMENTS
+
+## Reviews System
+- Product reviews
+- Product ratings
+- Rating aggregation
+
+## Payments
+- Stripe integration
+- Payment status handling
+
+## Blog System
+- Admin article management
+- Public blog pages
+
+## Email Notifications
+- Order confirmations
+- Delivery updates
+
+---
+
+# WHAT I LEARNED
+
+This project helped me improve:
+- scalable React architecture
+- TypeScript strict mode
+- responsive UI engineering
+- cart synchronization patterns
+- role-based UI handling
+- async state management
+- frontend deployment workflows
+- image upload and management with Cloudinary
