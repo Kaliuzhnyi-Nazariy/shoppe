@@ -1,4 +1,10 @@
-import { Menu, ShoppingCart, X } from "lucide-react";
+import {
+  Menu,
+  ShoppingCart,
+  SquareArrowRightExit,
+  User,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Searchbar from "../Searchbar";
@@ -155,14 +161,23 @@ const MobHeader = () => {
               Shop
             </Link>
           </li>
+          <li onClick={() => menuClickFn()} className="w-full">
+            <Link to="/help" className="block w-full">
+              Help
+            </Link>
+          </li>
         </ul>
 
         <hr className="mt-10" />
 
         <ul className="mt-6 flex flex-col gap-6">
           <li onClick={() => menuClickFn()} className="w-full">
-            <Link to="/account/dashboard" className="block w-full">
-              My account
+            <Link
+              to="/account/dashboard"
+              className="flex items-center gap-2.5 w-full"
+            >
+              <User className="size-5" />
+              <span>My account</span>
             </Link>
           </li>
           {isAuthenticated && (
@@ -170,8 +185,9 @@ const MobHeader = () => {
               <button
                 type="button"
                 onClick={() => mutate()}
-                className="w-full text-start cursor-pointer"
+                className="flex items-center gap-2.5 w-full text-start cursor-pointer"
               >
+                <SquareArrowRightExit className="size-4.5" />
                 {isPending ? "Loading..." : "Logout"}
               </button>
             </li>
