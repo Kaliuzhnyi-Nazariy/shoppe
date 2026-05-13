@@ -23,7 +23,9 @@ const Footer = () => {
         </label>
 
         <ul className="mt-10 lg:mt-0 lg:flex lg:items-center lg:gap-10">
-          <li>CONTACT</li>
+          <li>
+            <Link to="/contact">CONTACT</Link>
+          </li>
           <li>
             <Link to="/terms">TERMS OF SERVICES</Link>
           </li>

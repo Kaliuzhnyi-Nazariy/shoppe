@@ -8,6 +8,7 @@ interface ButtonProp {
   fn?: () => void;
   extraStyles?: string;
   form?: string;
+  topMargin?: string;
 }
 
 const StyledButton = ({
@@ -20,6 +21,7 @@ const StyledButton = ({
   fn,
   extraStyles,
   form,
+  topMargin = "",
 }: ButtonProp) => {
   return (
     <button
@@ -37,7 +39,7 @@ const StyledButton = ({
         type === "primary"
           ? "bg-black text-white  border-transparent not-disabled:focus:bg-white not-disabled:focus:text-black not-disabled:focus:border-black not-disabled:hover:bg-white not-disabled:hover:text-black not-disabled:hover:border-black"
           : "border-black text-black bg-white not-disabled:hover:border-transparent not-disabled:hover:bg-black not-disabled:hover:text-white not-disabled:focus:border-transparent not-disabled:focus:bg-black not-disabled:focus:text-white"
-      }  `}
+      } ${topMargin} `}
       disabled={pending || !isValid}
       onClick={fn}
       form={form}
