@@ -46,7 +46,7 @@ const Orders = () => {
         />
       )}
       {searchPending ? (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col flex-1 items-center justify-center">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>
       ) : (

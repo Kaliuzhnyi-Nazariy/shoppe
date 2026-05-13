@@ -40,7 +40,7 @@ const CartComponent = () => {
     <>
       {isAuthenticated && isPending ? (
         // <p>Loading...</p>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center flex-1">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>
       ) : (

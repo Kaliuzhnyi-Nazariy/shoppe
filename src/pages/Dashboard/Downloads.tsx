@@ -16,7 +16,7 @@ const Downloads = () => {
   return (
     <Section changePaddings="min-[1024px]:px-24">
       {isFetching ? (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col flex-1 items-center justify-center">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>
       ) : (

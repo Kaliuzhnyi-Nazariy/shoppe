@@ -19,10 +19,11 @@ const Home = () => {
       }
     >
       <div
-        className={`${
+        className={` flex flex-col h-full flex-1 ${
           data.length === 0
-            ? " flex flex-col h-full flex-1 justify-center items-center"
-            : ""
+            ? " justify-center items-center"
+            : // ? " flex flex-col h-full flex-1 justify-center items-center"
+              ""
         }`}
       >
         <CategoriesSlider isPending={isFetching} />
