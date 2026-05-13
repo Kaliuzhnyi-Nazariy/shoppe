@@ -6,7 +6,7 @@ const Privacy = () => {
       extraStyles="mt-6 lg:mt-0 text-xs mb-24 lg:text-[16px]"
       changePaddings="lg:pt-24 lg:px-24"
     >
-      <div className="lg:w-167.75 lg:mx-auto">
+      <div className="lg:w-2xl lg:mx-auto">
         <h3 className="text-xl lg:text-center lg:text-[32px] lg:font-semibold">
           Privacy Policy
         </h3>

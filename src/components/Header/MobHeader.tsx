@@ -162,6 +162,11 @@ const MobHeader = () => {
             </Link>
           </li>
           <li onClick={() => menuClickFn()} className="w-full">
+            <Link to="/about" className="block w-full">
+              About
+            </Link>
+          </li>
+          <li onClick={() => menuClickFn()} className="w-full">
             <Link to="/help" className="block w-full">
               Help
             </Link>
