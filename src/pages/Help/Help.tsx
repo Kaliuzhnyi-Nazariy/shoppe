@@ -1,7 +1,7 @@
 import { FileCheckCorner, Lock, Package, RotateCcw } from "lucide-react";
-import Section from "../components/Section";
+import Section from "../../components/Section";
 import { Link, useNavigate } from "react-router";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "../../components/StyledButton";
 
 const LinkComponent = ({
   link,
@@ -36,7 +36,7 @@ const Help = () => {
       <ul className="mt-9">
         <li className="">
           <LinkComponent
-            link="/"
+            link="/terms"
             icon={FileCheckCorner}
             text="Terms of Service"
           />
@@ -45,7 +45,7 @@ const Help = () => {
           <LinkComponent link="/" icon={Package} text="Shipping" />
         </li>
         <li>
-          <LinkComponent link="/" icon={Lock} text="Privacy Policy" />
+          <LinkComponent link="/privacy" icon={Lock} text="Privacy Policy" />
         </li>
         <li>
           <LinkComponent link="/" icon={RotateCcw} text="Retun & Exchanges" />

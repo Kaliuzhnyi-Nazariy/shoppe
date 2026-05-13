@@ -51,7 +51,9 @@ const TrackOrderPage = lazy(() => import("./pages/TrackOrder"));
 
 const LogoutPage = lazy(() => import("./pages/Logout"));
 // const SearchOrderPage = lazy(() => import("./pages/SearchOrder"));
-const HelpPage = lazy(() => import("./pages/Help"));
+const HelpPage = lazy(() => import("./pages/Help/Help"));
+const TermsPage = lazy(() => import("./pages/Help/Terms"));
+const PolicyPage = lazy(() => import("./pages/Help/Privacy"));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -114,6 +116,8 @@ function App() {
           <Route path="/set/password" element={<SetPasswordPage />} />
           <Route path="/forget" element={<ForgetPage />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PolicyPage />} />
 
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/product/create" element={<CreateProductPage />} />
