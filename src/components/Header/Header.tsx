@@ -102,7 +102,7 @@ const Header = () => {
               <Link to={"/shop"}>Shop</Link>
             </li>
             <li>
-              <Link to={""}>Blog</Link>
+              <Link to={"/blog"}>Blog</Link>
             </li>
             <li>
               <Link to={"/about"}>Our Story</Link>
