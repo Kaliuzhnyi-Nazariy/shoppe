@@ -58,6 +58,8 @@ const PolicyPage = lazy(() => import("./pages/Help/Privacy"));
 const AboutPage = lazy(() => import("./pages/About"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 
+const BlogPage = lazy(() => import("./pages/Blog"));
+
 function App() {
   const dispatch = useAppDispatch();
 
@@ -124,6 +126,8 @@ function App() {
 
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+
+          <Route path="/blog" element={<BlogPage />} />
 
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/product/create" element={<CreateProductPage />} />
