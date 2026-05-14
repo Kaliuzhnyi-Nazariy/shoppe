@@ -6,28 +6,28 @@ const PostsList = () => {
     date: string;
     title: string;
     article: string;
-    id: number;
+    id: string;
   }[] = [
     {
       category: "fashion",
       date: "October 8, 2020",
       title: "Top Trends From Spring",
       article: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni delectus a quod necessitatibus quam, eligendi odit commodi laborum, minus architecto nam asperiores error itaque blanditiis ullam vel provident. Natus, delectus!`,
-      id: 1,
+      id: "1",
     },
     {
       category: "fashion",
       date: "October 8, 2020",
       title: "Top Trends From Spring",
       article: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni delectus a quod necessitatibus quam, eligendi odit commodi laborum, minus architecto nam asperiores error itaque blanditiis ullam vel provident. Natus, delectus!`,
-      id: 2,
+      id: "2",
     },
     {
       category: "fashion",
       date: "October 8, 2020",
       title: "Top Trends From Spring",
       article: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni delectus a quod necessitatibus quam, eligendi odit commodi laborum, minus architecto nam asperiores error itaque blanditiis ullam vel provident. Natus, delectus!`,
-      id: 3,
+      id: "3",
     },
   ];
 
@@ -36,6 +36,7 @@ const PostsList = () => {
       {posts.map((p) => {
         return (
           <Preview
+            id={p.id}
             article={p.article}
             category={p.category}
             date={p.date}

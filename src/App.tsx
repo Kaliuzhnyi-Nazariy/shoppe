@@ -59,6 +59,7 @@ const AboutPage = lazy(() => import("./pages/About"));
 const ContactPage = lazy(() => import("./pages/Contact"));
 
 const BlogPage = lazy(() => import("./pages/Blog"));
+const PostPage = lazy(() => import("./pages/Post"));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -128,6 +129,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
 
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/post/:postId" element={<PostPage />} />
 
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/product/create" element={<CreateProductPage />} />

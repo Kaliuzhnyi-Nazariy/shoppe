@@ -5,9 +5,10 @@ interface Props {
   date: string;
   title: string;
   article: string;
+  id: string;
 }
 
-const Preview = ({ category, date, title, article }: Props) => {
+const Preview = ({ id, category, date, title, article }: Props) => {
   return (
     <li className="lg:max-w-112.5 lg:justify-self-center">
       <div className="w-full h-48 bg-(--accent) rounded-lg lg:h-75"></div>
@@ -22,7 +23,7 @@ const Preview = ({ category, date, title, article }: Props) => {
         </article>
 
         <Link
-          to="/blog"
+          to={"/post/" + id}
           className="block mt-4 text-(--accent) cursor-pointer lg:text-[16px] lg:mt-6"
         >
           Read more
