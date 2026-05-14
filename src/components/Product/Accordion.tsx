@@ -16,7 +16,7 @@ export const ProductAccordion = ({
   description: string;
 }) => {
   return (
-    <div className="min-[1440px]:hidden">
+    <div className="min-[1440px]:hidden text-xs">
       <Accordion
         elevation={0}
         square
@@ -27,8 +27,14 @@ export const ProductAccordion = ({
           "&.Mui-expanded": { margin: 0 },
         }}
       >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0 }}>
-          <Typography>Description</Typography>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          sx={{
+            px: 0,
+            fontSize: "12px",
+          }}
+        >
+          <Typography sx={{ fontSize: "12px" }}>Description</Typography>
         </AccordionSummary>
         <AccordionDetails
           sx={{
@@ -37,6 +43,7 @@ export const ProductAccordion = ({
             "&:before": {
               display: "none",
             },
+            fontSize: "12px",
           }}
         >
           {description}
@@ -59,9 +66,13 @@ export const ProductAccordion = ({
             id="panel2-header"
             sx={{ px: 0 }}
           >
-            <Typography component="span">Additional information</Typography>
+            <Typography component="span" sx={{ fontSize: "12px" }}>
+              Additional information
+            </Typography>
           </AccordionSummary>
-          <AccordionDetails>{additionalInformation}</AccordionDetails>
+          <AccordionDetails sx={{ fontSize: "12px" }}>
+            {additionalInformation}
+          </AccordionDetails>
         </Accordion>
       )}
       <Accordion
@@ -81,9 +92,11 @@ export const ProductAccordion = ({
           sx={{ px: 0, ":disabled": { opacity: "100%" } }}
           disabled={reviews === 0}
         >
-          <Typography component="span">Reviews ({reviews})</Typography>
+          <Typography component="span" sx={{ fontSize: "12px" }}>
+            Reviews ({reviews})
+          </Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ fontSize: "12px" }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
           malesuada lacus ex, sit amet blandit leo lobortis eget.
         </AccordionDetails>

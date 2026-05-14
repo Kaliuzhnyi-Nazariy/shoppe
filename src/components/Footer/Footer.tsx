@@ -1,8 +1,9 @@
 import { ArrowRight, Facebook, Instagram, Twitter } from "lucide-react";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="pb-7 px-4 min-[1440px]:px-24 text-(--dark-gray) lg:border-t lg:border-t-(--light-gray) lg:pt-13">
+    <footer className="pb-7 px-4 min-[1440px]:px-24 text-(--dark-gray) lg:border-t lg:border-t-(--light-gray) lg:pt-13 lg:text-black ">
       <div className="lg:flex lg:flex-row-reverse lg:items-center lg:justify-between">
         <label className="border-b w-full flex items-center lg:w-99">
           <input
@@ -22,8 +23,12 @@ const Footer = () => {
         </label>
 
         <ul className="mt-10 lg:mt-0 lg:flex lg:items-center lg:gap-10">
-          <li>CONTACT</li>
-          <li>TERMS OF SERVICES</li>
+          <li>
+            <Link to="/contact">CONTACT</Link>
+          </li>
+          <li>
+            <Link to="/terms">TERMS OF SERVICES</Link>
+          </li>
           <li>SHIPPING AND RETURNS</li>
         </ul>
       </div>
@@ -64,7 +69,14 @@ const Footer = () => {
         </div>
 
         <p className="text-[12px] text-gray">
-          &copy; 2020 Shelly. Terms of use and privacy policy.
+          &copy; 2020 Shelly.{" "}
+          <Link to="/terms" className="text-(--dark-gray)">
+            Terms of use
+          </Link>{" "}
+          and{" "}
+          <Link to="/privacy" className="text-(--dark-gray)">
+            privacy policy.
+          </Link>
         </p>
       </div>
     </footer>

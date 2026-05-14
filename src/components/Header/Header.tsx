@@ -105,7 +105,7 @@ const Header = () => {
               <Link to={""}>Blog</Link>
             </li>
             <li>
-              <Link to={""}>Our Story</Link>
+              <Link to={"/about"}>Our Story</Link>
             </li>
           </ul>
 

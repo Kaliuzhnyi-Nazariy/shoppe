@@ -142,7 +142,7 @@ const TrackOrder = () => {
 
       <div className="flex-1 flex flex-col items-center justify-center mb-6">
         {isPending && orderId ? (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col flex-1 items-center justify-center">
             <OrbitProgress color="var(--gray)" size="small" />
           </div>
         ) : order ? (

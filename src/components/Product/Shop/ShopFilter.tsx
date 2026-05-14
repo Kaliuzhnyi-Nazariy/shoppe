@@ -112,7 +112,7 @@ const ShopFilter = () => {
           />
 
           <button>
-            <Search className="szie-4.5" />
+            <Search className="size-4.5" />
           </button>
         </div>
       </form>
