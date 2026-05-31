@@ -31,6 +31,11 @@ export interface ICreateProductForm {
   amount?: number;
 }
 
+// export interface IProductFull extends IProduct {
+//   reviewCount: number;
+// }
+
 export interface IProductFull extends IProduct {
   reviewCount: number;
+  // reviews: [];
 }
