@@ -10,3 +10,5 @@ export const userLoading = (state: RootState) => state.user.isLoading;
 export const userEmail = (state: RootState) => state.user.user.email;
 export const userPasswordSet = (state: RootState) =>
   state.user.user.isPasswordSet;
+
+export const userId = (state: RootState) => state.user.user.id;
