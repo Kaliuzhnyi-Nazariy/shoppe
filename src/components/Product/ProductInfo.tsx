@@ -14,6 +14,7 @@ import {
 import { addToCart } from "../../../features/cart/requests";
 import { v4 } from "uuid";
 import { errorToast, successToast } from "../toast";
+import Rating from "@mui/material/Rating";
 
 const ProductInfo = ({ data }: { data: IProduct }) => {
   const shareProduct = () => {
@@ -135,6 +136,11 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
           <p className="text-[16px] text-(--accent) mt-1.25 min-[1440px]:mt-6 min-[1440px]:text-xl">
             $ {data.price}
           </p>
+          <Rating
+            value={data.rate}
+            precision={0.1}
+            style={{ color: "black", fontSize: "20px" }}
+          />
         </div>
 
         <div className="pb-2 min-[1440px]:hidden">

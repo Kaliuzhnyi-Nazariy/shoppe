@@ -1,12 +1,23 @@
-import { ProductAccordion } from "./Accordion";
+import { ProductAccordion } from "./ProductAccordion/Accordion";
 import type { IProductFull } from "../../../features/products/interface";
 import ProductExrtraTabs from "./ProductExrtraTabs";
+import { useQuery } from "@tanstack/react-query";
+import { getReviews } from "../../../features/review/requests";
 
 const ProductExtra = ({ data }: { data: IProductFull }) => {
+  const {
+    data: reviews,
+    // isFetching
+  } = useQuery({
+    queryKey: ["getReview", data.id],
+    queryFn: () => getReviews(data.id),
+  });
+
   return (
     <>
       <ProductAccordion
-        reviews={data.reviewCount}
+        reviews={reviews}
+        reviewsCount={data.reviewCount}
         description={data.description}
         additionalInformation={data.additionalInformation}
       />
