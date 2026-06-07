@@ -1,3 +1,12 @@
+export type Categories =
+  | "ELECTRONICS"
+  | "GAMING"
+  | "HOME"
+  | "OTHER"
+  | "JEWELRY"
+  | "BOOKS"
+  | "FOOD";
+
 export interface IProduct {
   id: string;
   photos: { id: string; link: string }[];
@@ -9,6 +18,7 @@ export interface IProduct {
   amount: number;
   isArchived: boolean;
   rate: number;
+  categories: Categories[];
 }
 
 export interface ICreateProduct {
@@ -19,6 +29,7 @@ export interface ICreateProduct {
   additionalInformation?: string;
   price: number;
   amount?: number;
+  categories: Categories[];
 }
 
 export interface ICreateProductForm {
@@ -29,6 +40,7 @@ export interface ICreateProductForm {
   additionalInformation?: string;
   price: number;
   amount?: number;
+  categories: Categories[];
 }
 
 // export interface IProductFull extends IProduct {

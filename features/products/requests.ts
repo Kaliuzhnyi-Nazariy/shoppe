@@ -1,4 +1,5 @@
 import api from "../api/api";
+import type { Categories } from "./interface";
 // import type { ICreateProduct } from "./interface";
 
 // export const getProducts = async () => {
@@ -13,18 +14,32 @@ import api from "../api/api";
 //   ).data;
 // };
 
-export const getProducts = async (
-  search?: string,
-  lte?: string,
-  gte?: string,
-  stock?: string,
-  sort?: string,
-) => {
-  return (
-    await api.get("/products", {
-      params: { search, lte, gte, stock, sort },
-    })
-  ).data;
+export const getProducts = async ({
+  search,
+  lte,
+  gte,
+  stock,
+  sort,
+  category,
+}: {
+  search?: string;
+  lte?: string;
+  gte?: string;
+  stock?: string;
+  sort?: string;
+  category?: Categories | null;
+}) => {
+  // console.log({ params });
+
+  if (!category) {
+    return (
+      await api.get("/products", {
+        params: { search, lte, gte, stock, sort },
+      })
+    ).data;
+  } else {
+    return (await api.get("/products/category/" + category)).data;
+  }
 };
 
 export const getProductById = async (id: string) => {
