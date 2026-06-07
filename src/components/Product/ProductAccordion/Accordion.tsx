@@ -1,20 +1,30 @@
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from "@mui/material/Button";
+import ReviewAddComponent from "./ReviewAddComponent";
+import type { IReview } from "../../../../features/review/interface";
+import ReviewsList from "./ReviewsList";
+import { useSelector } from "react-redux";
+import { userId } from "../../../../features/user/selectors";
 
 export const ProductAccordion = ({
   reviews,
+  reviewsCount,
   additionalInformation,
   description,
 }: {
-  reviews: number;
+  reviewsCount: number;
+  reviews: IReview[];
   additionalInformation?: string;
   description: string;
 }) => {
+  const userIdValue = useSelector(userId);
+
+  const isUserLeftReview =
+    reviews && reviews.some((review) => review.userId === userIdValue);
+
   return (
     <div className="min-[1440px]:hidden text-xs">
       <Accordion
@@ -86,24 +96,23 @@ export const ProductAccordion = ({
         }}
       >
         <AccordionSummary
-          expandIcon={reviews !== 0 && <ExpandMoreIcon />}
+          expandIcon={<ExpandMoreIcon />}
+          // expandIcon={reviews !== 0 && <ExpandMoreIcon />}
           aria-controls="panel3-content"
           id="panel3-header"
           sx={{ px: 0, ":disabled": { opacity: "100%" } }}
-          disabled={reviews === 0}
+          // disabled={reviews === 0}
         >
           <Typography component="span" sx={{ fontSize: "12px" }}>
-            Reviews ({reviews})
+            Reviews ({reviewsCount}){/* Reviews ({reviews}) */}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ fontSize: "12px" }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        <AccordionDetails>
+          {/* <ReviewForm /> */}
+          <ReviewAddComponent isUserLeftReview={isUserLeftReview} />
+
+          <ReviewsList reviews={reviews} reviewsCount={reviewsCount} />
         </AccordionDetails>
-        <AccordionActions>
-          <Button>Cancel</Button>
-          <Button>Agree</Button>
-        </AccordionActions>
       </Accordion>
     </div>
   );

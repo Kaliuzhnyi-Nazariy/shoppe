@@ -67,7 +67,7 @@ const Header = () => {
 
   const { data: orderSearchbar = [], isPending: searchPending } = useQuery({
     queryKey: ["searchProduct", searchParam],
-    queryFn: () => getProducts(searchParam),
+    queryFn: () => getProducts({ search: searchParam }),
     enabled: searchParam.length > 0,
   });
 

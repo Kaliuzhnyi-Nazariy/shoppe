@@ -14,6 +14,7 @@ import {
 import { addToCart } from "../../../features/cart/requests";
 import { v4 } from "uuid";
 import { errorToast, successToast } from "../toast";
+import Rating from "@mui/material/Rating";
 
 const ProductInfo = ({ data }: { data: IProduct }) => {
   const shareProduct = () => {
@@ -135,6 +136,15 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
           <p className="text-[16px] text-(--accent) mt-1.25 min-[1440px]:mt-6 min-[1440px]:text-xl">
             $ {data.price}
           </p>
+          {data.rate != 0 ? (
+            <Rating
+              value={data.rate}
+              precision={0.1}
+              style={{ color: "black", fontSize: "20px" }}
+            />
+          ) : (
+            <p>No reviews</p>
+          )}
         </div>
 
         <div className="pb-2 min-[1440px]:hidden">
@@ -214,10 +224,6 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
         )}
         {data.description && (
           <article className="h-10 min-[1440px]:h-full overflow-hidden text-ellipsis  text-wrap mt-4">
-            {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-                  vero quisquam labore reiciendis quas eos facilis, sapiente
-                  consectetur minus ullam commodi neque sed qui aliquam veniam
-                  suscipit ipsum, aut sunt? */}
             {data.description}
           </article>
         )}
@@ -225,6 +231,12 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
           <p className="mt-1.5">View more</p>
           <div className="w-full h-px bg-gray mt-4"></div>
         </div>
+        <p>
+          Categories:{" "}
+          <span className="text-(--dark-gray)">
+            {data.categories.join(", ")}
+          </span>
+        </p>
       </div>
     </div>
   );

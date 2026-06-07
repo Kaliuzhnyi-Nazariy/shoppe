@@ -3,6 +3,16 @@ import { z } from "zod";
 const fileSchema = z.instanceof(FileList);
 // const fileSchema = z.instanceof(File);
 
+const CATEGORY_OPTIONS = [
+  "ELECTRONICS",
+  "GAMING",
+  "HOME",
+  "OTHER",
+  "JEWELRY",
+  "BOOKS",
+  "FOOD",
+] as const;
+
 export const productValidation = z.object({
   photos: fileSchema,
   // photos: z.array(fileSchema).max(10),
@@ -13,4 +23,5 @@ export const productValidation = z.object({
   additionalInformation: z.string().optional(),
   price: z.number(),
   amount: z.number().optional(),
+  categories: z.array(z.enum(CATEGORY_OPTIONS)).min(1),
 });

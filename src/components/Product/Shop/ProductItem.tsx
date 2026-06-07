@@ -18,8 +18,6 @@ const ProductItem = ({
           <img
             src={product.photos[0].link}
             alt={product.title}
-            // className="size-34 object-cover object-center relative"
-            // className="min-w-34 min-h-34 max-h-94 max-w-94 object-cover object-center relative"
             className={`size-34  rounded-sm object-contain object-center relative ${
               isShop ? "lg:size-75" : "lg:size-94!"
             }`}
@@ -27,8 +25,9 @@ const ProductItem = ({
         </>
       ) : (
         <div
-          // className="size-34 rounded-sm bg-purple-500 relative"
-          className="size-34 lg:size-94! rounded-sm bg-purple-500 relative"
+          className={`size-34 rounded-sm bg-purple-500 relative ${
+            isShop ? "lg:size-75" : "lg:size-94!"
+          }`}
         ></div>
       )}
 
@@ -48,14 +47,6 @@ const ProductItem = ({
           archived
         </p>
       )}
-      {/* <div className="mt-1.5 text-[14px] flex items-center justify-between">
-        <p className=" ">{product.title}</p>
-        {product.isArchived && (
-          <p className="bg-(--light-gray) px-2 py-0.5 rounded-full text-[10px] uppercase font-light">
-          archived
-          </p>
-          )}
-          </div> */}
       <p className="mt-1.5 text-[14px] lg:text-xl ">{product.title}</p>
       <p className="mt-1 text-(--accent)">
         <span>$ </span>

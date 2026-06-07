@@ -24,6 +24,8 @@ import AddPhotoAccordion from "../components/Product/AddPhotoAccordion";
 import { v4 } from "uuid";
 import { errorToast, successToast } from "../components/toast";
 
+import type { Categories } from "../../features/products/interface";
+
 const CreateProduct = () => {
   const methods = useForm<ICreateProductForm>({
     mode: "all",
@@ -41,6 +43,7 @@ const CreateProduct = () => {
         amount: 0,
         description: "",
         price: 0,
+        categories: [],
         title: "",
       });
       navigate("/shop");
@@ -93,6 +96,21 @@ const CreateProduct = () => {
     setPreviewLinks((prev) => [...prev, ...newPhotos]);
   };
 
+  const [categories, setCategories] = useState<Categories[]>([]);
+
+  const categoryClickHandle = (category: Categories) => {
+    const nextCategories = categories.includes(category)
+      ? categories.filter((cat) => cat !== category)
+      : [...categories, category];
+
+    setCategories(nextCategories);
+
+    methods.setValue("categories", nextCategories, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
   const clickHandle = ({ id }: { id: string }) => {
     setPreviewLinks(previewLinks.filter((pl) => pl.id !== id));
     setFiles(files.filter((f) => f.id !== id));
@@ -119,17 +137,33 @@ const CreateProduct = () => {
     );
     formData.append("price", String(submitData.price));
     formData.append("amount", String(submitData.amount));
+
+    console.log("categories in mutate: ", categories);
+
+    categories.forEach((cat) => {
+      formData.append("categories", cat);
+    });
+
     mutate(formData);
   };
 
   // console.log("previewLinks.length: ", previewLinks.length);
+  const categoriesList = [
+    "ELECTRONICS",
+    "GAMING",
+    "HOME",
+    "OTHER",
+    "JEWELRY",
+    "BOOKS",
+    "FOOD",
+  ] as Categories[];
 
   return (
     <Section extraStyles="pb-25">
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(submitHandle)}
-          className="mt-12 flex flex-col gap-10 min-[1024px]:flex-row min-[1024px]:m-0 min-[1024px]:items-end"
+          className="mt-12 flex flex-col gap-10 min-[1024px]:flex-row min-[1024px]:m-0 min-[1024px]:items-center"
         >
           <AddPhotoAccordion
             images={previewLinks}
@@ -147,6 +181,24 @@ const CreateProduct = () => {
                 />
               );
             })}
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 text-xs gap-2">
+              {categoriesList.map((category, ind) => {
+                return (
+                  <li
+                    className={
+                      "border rounded-sm text-center py-1 transition-colors duration-200 " +
+                      (categories.includes(category)
+                        ? "border-(--accent) text-(--accent)"
+                        : "border-black")
+                    }
+                    key={ind}
+                    onClick={() => categoryClickHandle(category)}
+                  >
+                    {category}
+                  </li>
+                );
+              })}
+            </ul>
             <StyledButton
               text="CREATE PRODUCT"
               isValid={methods.formState.isValid}

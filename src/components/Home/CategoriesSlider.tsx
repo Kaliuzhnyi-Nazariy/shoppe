@@ -1,6 +1,21 @@
 import { useKeenSlider } from "keen-slider/react";
+// import { useState } from "react";
+import type { Categories } from "../../../features/products/interface";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import {
+//   getProducts,
+//   getProductsByCategory,
+// } from "../../../features/products/requests";
 
-const CategoriesSlider = ({ isPending }: { isPending: boolean }) => {
+const CategoriesSlider = ({
+  isPending = false,
+  chosenCategory,
+  choseCategory,
+}: {
+  isPending: boolean;
+  chosenCategory: Categories | null;
+  choseCategory: (category: Categories) => void;
+}) => {
   const [ref] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
@@ -16,34 +31,33 @@ const CategoriesSlider = ({ isPending }: { isPending: boolean }) => {
     },
   });
 
-  const categories = ["Earring", "Necklace", "Rings", "Others"];
-
-  //   return (
-  //     <div ref={ref} className="keen-slider flex text-xs">
-  //       {categories.map((c, idx) => {
-  //         return (
-  //           <div
-  //             className="keen-slider__slide min-w-35 h-10 border border-(--light-gray) rounded-sm flex items-center justify-center"
-  //             key={idx}
-  //           >
-  //             {c}
-  //           </div>
-  //         );
-  //       })}
-  //     </div>
-  //   );
+  const categories = [
+    "ELECTRONICS",
+    "GAMING",
+    "HOME",
+    "OTHER",
+    "JEWELRY",
+    "BOOKS",
+    "FOOD",
+  ] as const;
 
   return (
     <div
       ref={ref}
       className={
-        "keen-slider text-xs min-[1024px]:hidden " + isPending && "hidden"
+        "keen-slider text-xs min-[1024px]:hidden " + (isPending && "hidden")
       }
     >
       {categories.map((c, idx) => (
         <div
           key={idx}
-          className="keen-slider__slide min-w-35! px-4 h-10 border border-(--light-gray) rounded-sm flex items-center justify-center"
+          onClick={() => choseCategory(c)}
+          className={
+            "keen-slider__slide min-w-35! px-4 h-10 border rounded-sm flex items-center justify-center transition-colors duration-200 " +
+            (chosenCategory === c
+              ? "border-(--accent) text-(--accent) "
+              : "border-(--light-gray)")
+          }
         >
           {c}
         </div>

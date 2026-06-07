@@ -11,7 +11,10 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productValidation } from "../validation";
-import type { ICreateProduct } from "../../features/products/interface";
+import type {
+  Categories,
+  ICreateProduct,
+} from "../../features/products/interface";
 import Section from "../components/Section";
 import AddPhotoAccordion from "../components/Product/AddPhotoAccordion";
 import Input from "../components/Input";
@@ -89,16 +92,12 @@ const UpdateProduct = () => {
         amount: data.amount,
         description: data.description,
         price: data.price,
+        categories: data.categories,
       });
     }
   }, [data, methods]);
 
-  // const createLocalURL = (files: File[]) => {
-  //   return files.map((ph) => URL.createObjectURL(ph));
-  // };
-
   const [files, setFiles] = useState<{ id: string; file: File }[]>([]);
-  // const [files, setFiles] = useState<File[]>([]);
 
   const [previewFilePhotos, setPreviewFilePhotos] = useState<
     {
@@ -108,36 +107,6 @@ const UpdateProduct = () => {
   >([]);
 
   const [filterIds, setFilterIds] = useState<string[]>([]);
-
-  // const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const newFiles = Array.from(e.target.files ?? []);
-
-  //   const photoFiles = newFiles.map((nf) => {
-  //     return { id: v4(), file: nf };
-  //   });
-
-  //   const updatedFiles = [...files, ...photoFiles].slice(0, 10);
-  //   // const updatedFiles = [...files, ...newFiles].slice(0, 10);
-
-  //   setFiles(updatedFiles);
-
-  //   const updatedFilesFiles = updatedFiles.map((up) => up.file);
-
-  //   const newURLs = createLocalURL(updatedFilesFiles);
-  //   // const newURLs = createLocalURL(updatedFiles);
-
-  //   // const newPhotos = updatedFiles.map((f, idx) => ({
-  //   //   id: f.name + "_" + f.lastModified,
-  //   //   link: newURLs[idx],
-  //   // }));
-
-  //   const newPhotos = updatedFiles.map((f, idx) => ({
-  //     id: generatedId!,
-  //     link: newURLs[idx],
-  //   }));
-
-  //   setPreviewFilePhotos((prev) => [...prev, ...newPhotos]);
-  // };
 
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = Array.from(e.target.files ?? []);
@@ -160,15 +129,6 @@ const UpdateProduct = () => {
 
   const db = data?.photos ?? [];
 
-  // const clickHandle = ({ id, link }: { id: string; link: string }) => {
-  //   console.log({ id, link });
-
-  //   setFilterIds((prev) => [...prev, id]);
-  //   if (link.startsWith("blob:")) {
-  //     console.log(link);
-  //   }
-  // };
-
   const clickHandle = ({ id, link }: { id: string; link: string }) => {
     setFilterIds((prev) => [...prev, id]);
 
@@ -190,6 +150,21 @@ const UpdateProduct = () => {
       (p) => !filterIds.includes(p.id),
     );
   }, [db, files, filterIds, previewFilePhotos]);
+
+  const [categories, setCategories] = useState<Categories[]>(data.categories);
+
+  const categoryClickHandle = (category: Categories) => {
+    const nextCategories = categories.includes(category)
+      ? categories.filter((cat) => cat !== category)
+      : [...categories, category];
+
+    setCategories(nextCategories);
+
+    methods.setValue("categories", nextCategories, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
 
   const submitHandle: SubmitHandler<ICreateProduct> = (submitData) => {
     const formData = new FormData();
@@ -215,11 +190,25 @@ const UpdateProduct = () => {
       }
     });
 
+    categories.forEach((c) => {
+      formData.append("categories", c);
+    });
+
     mutate({
       mutationData: formData,
       productId: id,
     });
   };
+
+  const categoriesList = [
+    "ELECTRONICS",
+    "GAMING",
+    "HOME",
+    "OTHER",
+    "JEWELRY",
+    "BOOKS",
+    "FOOD",
+  ] as Categories[];
 
   return (
     <Section extraStyles="pb-25">
@@ -249,6 +238,25 @@ const UpdateProduct = () => {
                   />
                 );
               })}
+
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 text-xs gap-2">
+                {categoriesList.map((category, ind) => {
+                  return (
+                    <li
+                      className={
+                        "border rounded-sm text-center py-1 transition-colors duration-200 " +
+                        (categories.includes(category)
+                          ? "border-(--accent) text-(--accent)"
+                          : "border-black")
+                      }
+                      key={ind}
+                      onClick={() => categoryClickHandle(category)}
+                    >
+                      {category}
+                    </li>
+                  );
+                })}
+              </ul>
               <StyledButton
                 text="UPDATE PRODUCT"
                 isValid={methods.formState.isValid}

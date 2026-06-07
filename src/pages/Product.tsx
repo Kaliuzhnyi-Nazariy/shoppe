@@ -31,95 +31,8 @@ const Products = () => {
     navigate("/shop");
   }
 
-  // console.log({ data });
-
-  // const isUserLoggedIn = useSelector(userLoggedIn);
-
-  // const { mutate: addToCartFn, isPending: isAdding } = useMutation({
-  //   mutationKey: ["addToCart"],
-  //   mutationFn: (dataSubmit: { productId: string; quantity: number }) =>
-  //     addToCart(dataSubmit),
-  //   onSuccess() {
-  //     queryClient.invalidateQueries({ queryKey: ["getCart"] });
-  //     setProductsAddToCart(1);
-  //   },
-  // });
-
-  // const cart = useCart();
-  // const { addToCart: addToLocalCart, isPenidng: isAdding } = useLocalCart();
-  // const { addToCart: addToCartFn, isPenidng: isAddingAPI } = useAPICart();
-  // const { addToCart: addToLocalCart, isPenidng: isAdding } = useCart();
-
-  // const { addToCart: addToLocalCart } = useCart();
-
-  // const addProduct = () => {
-  //   if (isUserLoggedIn) {
-  //     addToCartFn({ productId: productId!, quantity: productsAddToCart });
-  //     return;
-  //   }
-
-  //   addToLocalCart({
-  //     id: v4(),
-  //     price: data.price,
-  //     quantity: productsAddToCart,
-  //     userId: null,
-  //     product: {
-  //       amount: data.amount,
-  //       id: data.id,
-  //       photos: data.photos,
-  //       rate: data.rate,
-  //       title: data.title,
-  //       isArchived: data.isArchived,
-  //       description: "",
-  //       reviewCount: 0,
-  //     },
-  //   });
-
-  //   setProductsAddToCart(1);
-  // };
-
-  // const role = useSelector(userRole);
-
-  // const adminRedirect = () => {
-  //   navigate("/product/update/" + productId);
-  // };
-
-  // const { mutate: deleteMutate, isPending: deletePending } = useMutation({
-  //   mutationFn: (id: string) => deleteProduct(id),
-  //   onSuccess() {
-  //     queryClient.invalidateQueries({ queryKey: ["getProducts"] });
-  //     navigate("/shop");
-  //   },
-  // });
-
-  // const { mutate: archiveProductFn, isPending: archivingPending } = useMutation(
-  //   {
-  //     mutationFn: (id: string) => archiveProduct(id),
-  //     onSuccess() {
-  //       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
-  //       navigate("/shop");
-  //     },
-  //   },
-  // );
-
   const images =
     data?.photos.map((p: { id: string; link: string }) => p.link) || [];
-
-  // const addToCartButton = () => {
-  //   if (productsAddToCart === data.amount) {
-  //     return;
-  //   } else {
-  //     setProductsAddToCart((prev) => prev + 1);
-  //   }
-  // };
-
-  // const removeFromCartButton = () => {
-  //   if (productsAddToCart - 1 === 0) {
-  //     return;
-  //   } else {
-  //     setProductsAddToCart((prev) => prev - 1);
-  //   }
-  // };
 
   return (
     <Section extraStyles="pb-25 flex flex-col flex-1">
@@ -133,11 +46,6 @@ const Products = () => {
             <ProductPhoto data={data} images={images} />
             <ProductInfo data={data} />
           </div>
-          {/* <ProductAccordion
-            reviews={data.reviewCount}
-            description={data.description}
-            additionalInformation={data.additionalInformation}
-          /> */}
           <ProductExtra data={data} />
           <Link
             to="/shop"

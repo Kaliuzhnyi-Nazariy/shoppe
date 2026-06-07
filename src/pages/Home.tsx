@@ -4,13 +4,31 @@ import ProductList from "../components/Product/Shop/ProductList";
 import Section from "../components/Section";
 import { getProducts } from "../../features/products/requests";
 import NoProducts from "../components/Product/Shop/NoProducts";
+import type { Categories } from "../../features/products/interface";
+import { useState } from "react";
 
 const Home = () => {
+  const [chosenCategory, setCategory] = useState<Categories | null>(null);
   const { data = [], isFetching } = useQuery({
-    queryKey: ["getProducts"],
-    queryFn: () => getProducts("", "", "", "true"),
+    queryKey: ["getProducts", chosenCategory],
+    queryFn: () =>
+      getProducts({
+        search: "",
+        lte: "",
+        gte: "",
+        stock: "true",
+        category: chosenCategory,
+      }),
     retry: false,
   });
+
+  const choseCategory = (category: Categories) => {
+    if (chosenCategory === category) {
+      setCategory(null);
+    } else {
+      setCategory(category);
+    }
+  };
 
   return (
     <Section
@@ -26,7 +44,11 @@ const Home = () => {
               ""
         }`}
       >
-        <CategoriesSlider isPending={isFetching} />
+        <CategoriesSlider
+          isPending={isFetching}
+          choseCategory={choseCategory}
+          chosenCategory={chosenCategory}
+        />
         <ProductList data={data} isPending={isFetching} extraStyle="mt-4" />
         <NoProducts productLength={data.length} isPending={isFetching} />
       </div>
