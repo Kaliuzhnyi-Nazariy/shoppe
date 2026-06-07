@@ -46,7 +46,6 @@ const ReviewsList = ({
   const { mutate, isPending: deleting } = useMutation({
     mutationFn: (id: string) => deleteReview(id),
     onSuccess(data) {
-      console.log(data);
       successToast("Review deleted!");
       client.invalidateQueries({ queryKey: ["getReview", data.productId] });
     },
@@ -54,7 +53,7 @@ const ReviewsList = ({
 
   return (
     <>
-      {reviews && reviews.length > 0 && (
+      {reviews && reviews.length > 0 ? (
         <div className="mt-15">
           <h5>Comments({reviewsCount})</h5>
           <ul className="mt-13">
@@ -72,27 +71,37 @@ const ReviewsList = ({
                   ) : (
                     <li
                       key={review.id}
-                      className="text-xs py-6 not-last:border-b not-last:border-b-(--gray) text-(--dark-gray)"
+                      className="text-xs py-6 not-last:border-b not-last:border-b-(--gray) text-(--dark-gray) lg:text-[16px]"
                     >
-                      <div className="flex flex-col gap-2 lg:flex-row lg:gap-4 lg:items-center ">
-                        <h3 className="lg:text-xl text-black">
-                          {review.user.displayName}
-                        </h3>
-                        <p className="">{formattedDate(review.createdAt)}</p>
+                      <div className="flex flex-col gap-2 min-[1024px]:flex-row min-[1024px]:gap-4 min-[1024px]:items-center min-[1440px]:flex-col min-[1440px]:items-start ">
+                        <div className="flex gap-2 items-center">
+                          <h3 className="lg:text-xl text-black">
+                            {review.user.displayName}
+                          </h3>
+                          <p className="lg:text-[14px]">
+                            {formattedDate(review.createdAt)}
+                          </p>
+                        </div>
                         <Rating
                           value={Number(review.rating)}
-                          style={{ color: "black", fontSize: "12px" }}
+                          style={{ color: "black", fontSize: "16px" }}
                         />
                       </div>
 
                       {review.comment.length > 0 && (
-                        <article className="mt-4">{review.comment}</article>
+                        <article className="mt-4 min-[1440px]:mt-6">
+                          {review.comment}
+                        </article>
                       )}
 
                       {isAuthed && review.userId === userIdValue && (
                         <>
                           {deleting ? (
-                            <OrbitProgress />
+                            <OrbitProgress
+                              size="small"
+                              color={"var(--gray)"}
+                              style={{ fontSize: 12 }}
+                            />
                           ) : (
                             <div className="mt-4 flex items-center gap-2">
                               <button onClick={() => mutate(review.id)}>
@@ -109,6 +118,10 @@ const ReviewsList = ({
               );
             })}
           </ul>
+        </div>
+      ) : (
+        <div className="h-full items-center flex justify-center mt-12 min-[1440px]:m-0">
+          <p>No reviews</p>
         </div>
       )}
     </>

@@ -2,7 +2,11 @@ import { useState } from "react";
 import StyledButton from "../../StyledButton";
 import ReviewForm from "./ReviewForm";
 
-const ReviewAddComponent = () => {
+const ReviewAddComponent = ({
+  isUserLeftReview,
+}: {
+  isUserLeftReview: boolean;
+}) => {
   const [showForm, setShowForm] = useState(false);
 
   const openForm = () => {
@@ -16,12 +20,16 @@ const ReviewAddComponent = () => {
   return (
     <>
       {!showForm ? (
-        <StyledButton
-          text="Add comment"
-          fn={openForm}
-          btnType="button"
-          extraStyles="w-fit px-4 py-2"
-        />
+        <>
+          {!isUserLeftReview && (
+            <StyledButton
+              text="Add comment"
+              fn={openForm}
+              btnType="button"
+              extraStyles="w-fit px-4 py-2"
+            />
+          )}
+        </>
       ) : (
         <div className="flex flex-col gap-8">
           <StyledButton

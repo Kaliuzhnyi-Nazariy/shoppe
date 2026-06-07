@@ -6,6 +6,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ReviewAddComponent from "./ReviewAddComponent";
 import type { IReview } from "../../../../features/review/interface";
 import ReviewsList from "./ReviewsList";
+import { useSelector } from "react-redux";
+import { userId } from "../../../../features/user/selectors";
 
 export const ProductAccordion = ({
   reviews,
@@ -18,6 +20,11 @@ export const ProductAccordion = ({
   additionalInformation?: string;
   description: string;
 }) => {
+  const userIdValue = useSelector(userId);
+
+  const isUserLeftReview =
+    reviews && reviews.some((review) => review.userId === userIdValue);
+
   return (
     <div className="min-[1440px]:hidden text-xs">
       <Accordion
@@ -102,7 +109,7 @@ export const ProductAccordion = ({
         </AccordionSummary>
         <AccordionDetails>
           {/* <ReviewForm /> */}
-          <ReviewAddComponent />
+          <ReviewAddComponent isUserLeftReview={isUserLeftReview} />
 
           <ReviewsList reviews={reviews} reviewsCount={reviewsCount} />
         </AccordionDetails>

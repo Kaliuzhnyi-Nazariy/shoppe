@@ -22,7 +22,8 @@ const ProductExtra = ({ data }: { data: IProductFull }) => {
         additionalInformation={data.additionalInformation}
       />
       <ProductExrtraTabs
-        reviews={data.reviewCount}
+        reviews={reviews}
+        reviewsCount={data.reviewCount}
         description={data.description}
         additionalInformation={data.additionalInformation}
       />

@@ -38,11 +38,13 @@ const ReviewForm = ({
   type = "add",
   reviewData,
   extraStyles = "",
+  isReviewLeft = false,
 }: {
   closeForm?: () => void;
   type?: "add" | "update";
   reviewData?: IReview;
   extraStyles?: string;
+  isReviewLeft?: boolean;
 }) => {
   const { pathname } = useLocation();
   const productId = pathname.split("/")[pathname.split("/").length - 1];
@@ -77,6 +79,9 @@ const ReviewForm = ({
       }
       client.invalidateQueries({ queryKey: ["getReview", productId] });
       client.invalidateQueries({ queryKey: ["getProduct", { productId }] });
+
+      methods.setValue("comment", "");
+      methods.setValue("rating", 0);
     },
   });
 
@@ -93,6 +98,11 @@ const ReviewForm = ({
       if (closeForm) {
         closeForm();
       }
+
+      methods.reset({
+        comment: "",
+        rating: 0,
+      });
 
       client.invalidateQueries({ queryKey: ["getReview", productId] });
       client.invalidateQueries({ queryKey: ["getProduct", { productId }] });
@@ -144,7 +154,7 @@ const ReviewForm = ({
     }
 
     methods.trigger();
-  }, [isUserLoggedIn, methods, reviewData]);
+  }, [email, isUserLoggedIn, methods, name, reviewData]);
 
   const buttonText = type === "add" ? "Post" : "Update";
 
@@ -203,11 +213,17 @@ const ReviewForm = ({
             )}
           />
         </div>
-        <StyledButton
-          text={buttonText}
-          isValid={methods.formState.isValid}
-          pending={addingReview || updatingReview}
-        />
+        {isReviewLeft ? (
+          <p className="text-(--error) mx-auto">
+            You have already left a review!
+          </p>
+        ) : (
+          <StyledButton
+            text={buttonText}
+            isValid={methods.formState.isValid && !isReviewLeft}
+            pending={addingReview || updatingReview}
+          />
+        )}
       </form>
     </FormProvider>
   );

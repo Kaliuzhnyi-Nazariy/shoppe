@@ -3,13 +3,20 @@ import Tab from "@mui/material/Tab";
 import { useState } from "react";
 import Section from "../Section";
 import Tabs from "@mui/material/Tabs";
+import type { IReview } from "../../../features/review/interface";
+import ReviewsList from "./ProductAccordion/ReviewsList";
+import ReviewForm from "./ProductAccordion/ReviewForm";
+import { useSelector } from "react-redux";
+import { userId } from "../../../features/user/selectors";
 
 const ProductExrtraTabs = ({
   reviews,
+  reviewsCount,
   additionalInformation,
   description,
 }: {
-  reviews: number;
+  reviewsCount: number;
+  reviews: IReview[];
   additionalInformation?: string;
   description: string;
 }) => {
@@ -17,20 +24,18 @@ const ProductExrtraTabs = ({
     "description" | "additional_information" | "reviews"
   >("description");
 
-  // const tabs = additionalInformation
-  //   ? ["description", "additional_information", "reviews"]
-  //   : ["description", "reviews"];
-
-  // const activeIndex = tabs.indexOf(value);
-  // const width = 100 / tabs.length;
-
   const tabs = [
     { label: "Description", value: "description" },
     ...(additionalInformation
       ? [{ label: "Additional information", value: "additional_information" }]
       : []),
-    { label: `Reviews (${reviews})`, value: "reviews" },
+    { label: `Reviews (${reviewsCount})`, value: "reviews" },
   ];
+
+  const userIdValue = useSelector(userId);
+
+  const isUserLeftReview =
+    reviews && reviews.some((review) => review.userId === userIdValue);
 
   return (
     <Section extraStyles="hidden min-[1440px]:block ">
@@ -76,42 +81,14 @@ const ProductExrtraTabs = ({
               <p>{additionalInformation}</p>
             )}
 
-            {value === "reviews" && <p>{reviews}</p>}
+            {value === "reviews" && (
+              <div className="grid grid-cols-2 gap-6">
+                <ReviewsList reviews={reviews} reviewsCount={reviewsCount} />
+                <ReviewForm isReviewLeft={isUserLeftReview} />
+              </div>
+            )}
+            {/* {value === "reviews" && <p>{reviews}</p>} */}
           </Box>
-          {/* <div
-            className="absolute bottom-0 left-0 h-[2px] bg-black transition-all duration-300"
-            style={{
-              width: `${width}%`,
-              transform: `translateX(${activeIndex * 100}%)`,
-            }}
-          />{" "}
-          <Tab
-            label="Description"
-            value="description"
-            onChange={() => handleChange("description")}
-          />
-          {additionalInformation && (
-            <Tab
-              label="Additional information"
-              value="additional_information"
-              onChange={() => handleChange("additional_information")}
-            />
-          )}
-          <Tab
-            label={`Reviews(${reviews})`}
-            value="reviews"
-            onChange={() => handleChange("reviews")}
-          />
-          <div>
-          {value === "description"
-          ? description
-          : value === "additional_information"
-          ? additionalInformation
-          : reviews}
-          </div> */}
-          {/* <TabPanel value="1">Item One</TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
-          <TabPanel value="3">Item Three</TabPanel> */}
         </Box>
       </Box>
     </Section>
