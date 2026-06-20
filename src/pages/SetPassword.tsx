@@ -41,6 +41,7 @@ const SetPassword = () => {
     onSuccess() {
       navigate("/account/dashboard");
       successToast("Password is set!");
+      localStorage.removeItem("resetToken");
     },
     onError(err) {
       const error = err as { response?: { data?: { message: string } } };
