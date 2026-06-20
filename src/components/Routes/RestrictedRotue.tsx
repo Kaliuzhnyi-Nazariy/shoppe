@@ -36,7 +36,7 @@ const RestrictedRotue = () => {
 
   // 2. already logged in → block access
   if (isUserLoggedIn) {
-    return <Navigate to={location?.state.from || "/account/dashboard"} />;
+    return <Navigate to={location?.state?.from || "/account/dashboard"} />;
   }
 
   // 3. allow access

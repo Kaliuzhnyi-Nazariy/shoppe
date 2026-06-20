@@ -55,7 +55,7 @@ const SignupForm = () => {
       dispatch(tokenSetting(data));
       dispatch(getUser());
       queryClient.invalidateQueries({ queryKey: ["getCart"] });
-      navigate(location?.state.from || "/account/dashboard");
+      navigate(location.state?.from || "/account/dashboard");
       successToast("Welcome!");
     },
     onError(err: { response: { data: { message: string } } }) {
