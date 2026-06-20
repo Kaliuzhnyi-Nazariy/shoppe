@@ -18,6 +18,7 @@ export const signup = async (data: SignupInterface) => {
   return token;
 };
 
+// no server logout exists
 export const signout = async () => {
   clearToken();
   return;
