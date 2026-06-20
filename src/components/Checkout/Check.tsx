@@ -54,42 +54,6 @@ const Check = ({
           <p className="text-(--dark-gray)">${subTotal}</p>
         </span>
         <hr className="mt-5 text-(--gray)" />
-        {/* <ul className="mt-10 flex flex-col gap-5">
-          <li>
-            <label htmlFor="checkPayment" className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="checkPayment"
-                onChange={() => setPaymentOption("checkPayment")}
-              />
-              <p>Check payments</p>
-            </label>
-          </li>
-          <li>
-            <label htmlFor="cashOnDelivery" className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="cashOnDelivery"
-                className="checked:outline-black"
-                onClick={() => setPaymentOption("cashOnDelivery")}
-              />
-              <p>Cash on delivery</p>
-            </label>
-          </li>
-          <li>
-            <label htmlFor="stripe" className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="stripe"
-                onClick={() => setPaymentOption("stripe")}
-              />
-              <p>Stripe</p>
-            </label>
-          </li>
-        </ul> */}
         <ul className="mt-10 flex flex-col gap-5">
           <li>
             <label htmlFor="checkPayment" className="flex items-center gap-2">
