@@ -58,6 +58,8 @@ function Input<T extends FieldValues>({
         type={type}
         className="border-b border-b-(--light-gray)  outline-none py-1.5 w-full"
         disabled={disabled}
+        step={type === "number" ? 0.01 : undefined}
+        min={type === "number" ? 0 : undefined}
       />
 
       {error && <p className="text-xs text-(--error) mt-2">{error.message}</p>}
