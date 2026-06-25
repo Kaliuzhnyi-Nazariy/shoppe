@@ -12,7 +12,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { clearCart, getCart } from "../../features/cart/requests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutSchema } from "../validation";
-import { placeOrder } from "../../features/order/requests";
+// import { placeOrder } from "../../features/order/requests";
 import type { PlaceOrder } from "../../features/order/interface";
 import BillingComponent from "../components/Checkout/BillingComponent";
 import CreateAccount from "../components/Checkout/CreateAccount";
@@ -25,9 +25,12 @@ import { v4 } from "uuid";
 import { tokenSetting } from "../../features/user/slice";
 import { getUser } from "../../features/user/operations";
 import { setToken } from "../../features/api/api";
-import LinkModal from "../components/Modal/LinkModal";
+// import LinkModal from "../components/Modal/LinkModal";
 import { errorToast, successToast } from "../components/toast";
 import StyledButton from "../components/StyledButton";
+
+import { loadStripe } from "@stripe/stripe-js";
+import { createCheckout } from "../../features/payment/requests";
 
 export type PaymentMethods = "stripe" | "cashOnDelivery" | "checkPayment";
 type CheckoutFormValues = {
@@ -38,18 +41,18 @@ type CheckoutFormValues = {
 const Checkout = () => {
   const isUserLoggedIn = useSelector(userLoggedIn);
 
-  const [link, setlink] = useState("");
-  const rootLink = window.location.href.split("/checkout")[0];
+  // const [link, setlink] = useState("");
+  // const rootLink = window.location.href.split("/checkout")[0];
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-    navigate("/");
-  };
+  // const openModal = () => {
+  //   setModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  //   navigate("/");
+  // };
 
   const methods = useForm<CheckoutFormValues>({
     mode: "all",
@@ -97,16 +100,33 @@ const Checkout = () => {
 
   const { mutateAsync, isPending: placingOrder } = useMutation({
     mutationKey: ["placeAnOrder"],
-    mutationFn: (data: PlaceOrder) => placeOrder(data),
-    onSuccess(data) {
-      if (isUserLoggedIn) {
-        clearCart();
-      } else {
-        clearLocalCart();
-        setlink(`${rootLink}/order/track?order=` + data.id);
-        openModal();
-      }
+    mutationFn: async (data: PlaceOrder) => {
+      if (data.paymentMethod === "stripe") {
+        const stripe = await loadStripe(import.meta.env.VITE_PUBLIC_STRIPE_KEY);
 
+        if (!stripe) {
+          console.log("no stripe");
+          return;
+        }
+
+        const response = await createCheckout(data);
+        // const response = await createCheckout(data.items);
+        window.location.href = response.url;
+
+        if (isUserLoggedIn) {
+          clearCart();
+        } else {
+          clearLocalCart();
+          // setlink(`${rootLink}/order/track?order=` + data.);
+          // openModal();
+        }
+      }
+      // return placeOrder(data);
+      // console.log({ data });
+      // console.log("pk: ", import.meta.env.VITE_PUBLIC_STRIPE_KEY);
+      // const response = await
+    },
+    onSuccess() {
       methods.reset();
       setNewShippingAddress(false);
       setNewAddress(false);
@@ -393,7 +413,7 @@ const Checkout = () => {
           />
         </div>
       </Section>
-      <LinkModal link={link} isOpen={isModalOpen} closeModal={closeModal} />
+      {/* <LinkModal link={link} isOpen={isModalOpen} closeModal={closeModal} /> */}
     </>
   );
 };

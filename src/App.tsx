@@ -61,6 +61,9 @@ const ContactPage = lazy(() => import("./pages/Contact"));
 const BlogPage = lazy(() => import("./pages/Blog"));
 const PostPage = lazy(() => import("./pages/Post"));
 
+const SuccessPage = lazy(() => import("./pages/OrderResult/Success"));
+const FailPage = lazy(() => import("./pages/OrderResult/Failed"));
+
 function App() {
   const dispatch = useAppDispatch();
 
@@ -130,6 +133,9 @@ function App() {
 
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/post/:postId" element={<PostPage />} />
+
+          <Route path="/order/success/:orderId" element={<SuccessPage />} />
+          <Route path="/order/failed" element={<FailPage />} />
 
           <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/product/create" element={<CreateProductPage />} />
