@@ -7,8 +7,6 @@ import { successToast } from "../../components/toast";
 const Success = () => {
   const { orderId } = useParams();
 
-  console.log(orderId);
-
   const navigate = useNavigate();
 
   if (!orderId) {
