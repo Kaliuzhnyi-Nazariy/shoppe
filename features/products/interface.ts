@@ -32,21 +32,6 @@ export interface ICreateProduct {
   categories: Categories[];
 }
 
-export interface ICreateProductForm {
-  photos: FileList;
-  // photos: File[];
-  title: string;
-  description: string;
-  additionalInformation?: string;
-  price: number;
-  amount?: number;
-  categories: Categories[];
-}
-
-// export interface IProductFull extends IProduct {
-//   reviewCount: number;
-// }
-
 export interface IProductFull extends IProduct {
   reviewCount: number;
   // reviews: [];

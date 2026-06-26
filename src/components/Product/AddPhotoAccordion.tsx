@@ -51,54 +51,21 @@ const AddPhotoAccordion = ({
     }
   }, [images, instanceRef]);
 
-  //   useEffect(() => {
-  //     if (instanceRef.current) {
-  //       instanceRef.current.destroy(); // 💥 reset everything
-  //       //   instanceRef.current = []; // optional safety
-  //     }
-  //   }, [images]);
-
-  //   console.log("images.length: ", images.length);
-
-  //   const slides = images.length < 10 ? [...images, "UPLOAD"] : images;
-
-  //   console.log("slides: ", slides);
-  //   console.log("slides.length", slides.length);
-
   const { register } = useFormContext();
-
-  //   console.log({ slides });
-  //   console.log({ images });
-
-  //   console.log(slides.length >= 11);
-
-  //   const segmentWidth = 100 / slidesCount;
-
-  //   console.log({ slidesCount });
-  //   console.log({ segmentWidth });
-  //   console.log("translate value: ", currentSlide * segmentWidth);
 
   const isMax = images.length >= 10;
 
-  //   console.log({ isMax });
-
   return (
-    // <div className="min-[1440px]:flex min-[1440px]:flex-col">
-    // <div className="min-[1440px]:flex min-[1440px]:flex-col w-full h-80 min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150">
-    //   <div className="navigation-wrapper relative min-[1024px]:w-125 min-[1024px]:h-110 min-[1440px]:w-150 ">
-    <div className="min-[1440px]:flex min-[1440px]:flex-col ">
-      <div className="navigation-wrapper relative min-h-80 lg:min-h-110 ">
-        {/* <div className="navigation-wrapper relative min-[1440px]:w-150 "> */}
-        {/* <div className="navigation-wrapper flex relative"> */}
+    <div className="col-start-1">
+      <div className="navigation-wrapper">
         <div
           ref={sliderRef}
-          className="keen-slider relative "
+          className=" keen-slider relative min-h-80 lg:min-h-110 "
           key={images.length}
         >
           {images.map((i) => (
             <div
               key={`${i.id}`}
-              // key={`${i}-${idx}`}
               className="keen-slider__slide flex items-center justify-center min-[1440px]:max-h-100"
             >
               <img
@@ -185,10 +152,6 @@ const AddPhotoAccordion = ({
 
           <div
             className="indicator"
-            // style={{
-            //   width: `${segmentWidth}%`,
-            //   transform: `translateX(${currentSlide * segmentWidth}%)`,
-            // }}
             style={{
               width: `${100 / slidesCount}%`,
               left: `${(currentSlide * 100) / slidesCount}%`,
@@ -196,6 +159,7 @@ const AddPhotoAccordion = ({
           />
         </div>
       )}
+      {/* </div > */}
     </div>
   );
 };

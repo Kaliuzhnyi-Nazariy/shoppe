@@ -7,28 +7,6 @@ import {
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { OrbitProgress } from "react-loading-indicators";
 
-// const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
-//   const role = useSelector(userRole);
-//   const isUserLoggedIn = useSelector(userLoggedIn);
-//   const isUserLoading = useSelector(userLoading);
-
-//   console.log({ isUserLoading, isUserLoggedIn });
-
-//   if (!isUserLoggedIn && isUserLoading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   if (isUserLoggedIn && !isUserLoading && allowedRoles.includes(role!)) {
-//     return <Outlet />;
-//   }
-
-//   console.log("second: ", { isUserLoading, isUserLoggedIn });
-
-//   return <Navigate to="/account/auth" replace />;
-// };
-
-// export default PrivateRoute;
-
 const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const role = useSelector(userRole);
   const isUserLoggedIn = useSelector(userLoggedIn);

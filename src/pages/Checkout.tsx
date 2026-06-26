@@ -13,7 +13,7 @@ import { clearCart, getCart } from "../../features/cart/requests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutSchema } from "../validation";
 import { placeOrder } from "../../features/order/requests";
-import type { PlaceOrder } from "../../features/order/interface";
+import type { PlaceOrder, IOrder } from "../../features/order/interface";
 import BillingComponent from "../components/Checkout/BillingComponent";
 import CreateAccount from "../components/Checkout/CreateAccount";
 import ShippingComponent from "../components/Checkout/ShippingComponent";
@@ -25,8 +25,12 @@ import { v4 } from "uuid";
 import { tokenSetting } from "../../features/user/slice";
 import { getUser } from "../../features/user/operations";
 import { setToken } from "../../features/api/api";
-import LinkModal from "../components/Modal/LinkModal";
+// import LinkModal from "../components/Modal/LinkModal";
 import { errorToast, successToast } from "../components/toast";
+import StyledButton from "../components/StyledButton";
+
+import { loadStripe } from "@stripe/stripe-js";
+import { createCheckout } from "../../features/payment/requests";
 
 export type PaymentMethods = "stripe" | "cashOnDelivery" | "checkPayment";
 type CheckoutFormValues = {
@@ -37,18 +41,18 @@ type CheckoutFormValues = {
 const Checkout = () => {
   const isUserLoggedIn = useSelector(userLoggedIn);
 
-  const [link, setlink] = useState("");
-  const rootLink = window.location.href.split("/checkout")[0];
+  // const [link, setlink] = useState("");
+  // const rootLink = window.location.href.split("/checkout")[0];
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-    navigate("/");
-  };
+  // const openModal = () => {
+  //   setModalOpen(true);
+  // };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  //   navigate("/");
+  // };
 
   const methods = useForm<CheckoutFormValues>({
     mode: "all",
@@ -76,16 +80,15 @@ const Checkout = () => {
 
   const [tokenId, setTokenId] = useState<string | null>(null);
 
-  const { data, isPending } = useQuery({
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ["getCart"],
     queryFn: getCart,
-    retry: false,
     enabled: isUserLoggedIn,
   });
 
   const { cart, clearCart: clearLocalCart } = useCart();
 
-  const cartData = isUserLoggedIn && !isPending ? data.items : cart;
+  const cartData = isUserLoggedIn && !isPending ? data?.items ?? [] : cart;
 
   const subTotal = cartData
     .reduce((accumulator: number, item: ICartItem) => {
@@ -97,16 +100,22 @@ const Checkout = () => {
 
   const { mutateAsync, isPending: placingOrder } = useMutation({
     mutationKey: ["placeAnOrder"],
-    mutationFn: (data: PlaceOrder) => placeOrder(data),
-    onSuccess(data) {
-      if (isUserLoggedIn) {
-        clearCart();
-      } else {
-        clearLocalCart();
-        setlink(`${rootLink}/order/track?order=` + data.id);
-        openModal();
-      }
+    mutationFn: async (data: PlaceOrder) => {
+      if (data.paymentMethod === "stripe") {
+        const stripe = await loadStripe(import.meta.env.VITE_PUBLIC_STRIPE_KEY);
 
+        if (!stripe) {
+          console.log("no stripe");
+          return;
+        }
+
+        const response = await createCheckout(data);
+        return (window.location.href = response.url);
+      } else {
+        return placeOrder({ ...data, notes: orderNotes });
+      }
+    },
+    onSuccess(data: IOrder) {
       methods.reset();
       setNewShippingAddress(false);
       setNewAddress(false);
@@ -128,10 +137,21 @@ const Checkout = () => {
       }
 
       successToast("Order is placed");
+
+      if (data.paymentMethod !== "stripe") {
+        navigate("/order/success/" + data.id);
+      }
+
+      if (isUserLoggedIn) {
+        clearCart();
+      } else {
+        clearLocalCart();
+      }
     },
     onError(err) {
       const error = err as { response?: { data?: { message: string } } };
       errorToast(error.response?.data?.message || "Something went wrong!");
+      navigate("/order/failed");
     },
   });
 
@@ -219,6 +239,7 @@ const Checkout = () => {
         paymentMethod: chosenPaymentOption,
         totalPrice: Number(subTotal),
         items: cartItems,
+        notes: orderNotes,
       });
     } catch (err) {
       const error = err as {
@@ -290,6 +311,16 @@ const Checkout = () => {
     selectShippingAddress(null);
     setNewShippingAddress((prev) => !prev);
   };
+
+  if (isError) {
+    return (
+      <Section extraStyles="flex flex-col items-center justify-center gap-4">
+        <h5>Error occured!</h5>
+        <p>{error.message}</p>
+        <StyledButton text="Back" fn={() => navigate("/")} />
+      </Section>
+    );
+  }
 
   return (
     <>
@@ -382,7 +413,7 @@ const Checkout = () => {
           />
         </div>
       </Section>
-      <LinkModal link={link} isOpen={isModalOpen} closeModal={closeModal} />
+      {/* <LinkModal link={link} isOpen={isModalOpen} closeModal={closeModal} /> */}
     </>
   );
 };
