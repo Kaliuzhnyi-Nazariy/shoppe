@@ -41,19 +41,6 @@ type CheckoutFormValues = {
 const Checkout = () => {
   const isUserLoggedIn = useSelector(userLoggedIn);
 
-  // const [link, setlink] = useState("");
-  // const rootLink = window.location.href.split("/checkout")[0];
-
-  // const [isModalOpen, setModalOpen] = useState(false);
-
-  // const openModal = () => {
-  //   setModalOpen(true);
-  // };
-  // const closeModal = () => {
-  //   setModalOpen(false);
-  //   navigate("/");
-  // };
-
   const methods = useForm<CheckoutFormValues>({
     mode: "all",
     resolver: zodResolver(checkoutSchema),
@@ -110,7 +97,8 @@ const Checkout = () => {
         }
 
         const response = await createCheckout(data);
-        return (window.location.href = response.url);
+        window.location.href = response.url;
+        return;
       } else {
         return placeOrder({ ...data, notes: orderNotes });
       }
