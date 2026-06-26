@@ -12,8 +12,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { clearCart, getCart } from "../../features/cart/requests";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutSchema } from "../validation";
-// import { placeOrder } from "../../features/order/requests";
-import type { PlaceOrder } from "../../features/order/interface";
+import { placeOrder } from "../../features/order/requests";
+import type { PlaceOrder, IOrder } from "../../features/order/interface";
 import BillingComponent from "../components/Checkout/BillingComponent";
 import CreateAccount from "../components/Checkout/CreateAccount";
 import ShippingComponent from "../components/Checkout/ShippingComponent";
@@ -110,23 +110,12 @@ const Checkout = () => {
         }
 
         const response = await createCheckout(data);
-        // const response = await createCheckout(data.items);
-        window.location.href = response.url;
-
-        if (isUserLoggedIn) {
-          clearCart();
-        } else {
-          clearLocalCart();
-          // setlink(`${rootLink}/order/track?order=` + data.);
-          // openModal();
-        }
+        return (window.location.href = response.url);
+      } else {
+        return placeOrder({ ...data, notes: orderNotes });
       }
-      // return placeOrder(data);
-      // console.log({ data });
-      // console.log("pk: ", import.meta.env.VITE_PUBLIC_STRIPE_KEY);
-      // const response = await
     },
-    onSuccess() {
+    onSuccess(data: IOrder) {
       methods.reset();
       setNewShippingAddress(false);
       setNewAddress(false);
@@ -148,10 +137,21 @@ const Checkout = () => {
       }
 
       successToast("Order is placed");
+
+      if (data.paymentMethod !== "stripe") {
+        navigate("/order/success/" + data.id);
+      }
+
+      if (isUserLoggedIn) {
+        clearCart();
+      } else {
+        clearLocalCart();
+      }
     },
     onError(err) {
       const error = err as { response?: { data?: { message: string } } };
       errorToast(error.response?.data?.message || "Something went wrong!");
+      navigate("/order/failed");
     },
   });
 
