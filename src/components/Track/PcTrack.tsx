@@ -80,7 +80,7 @@ const PcTrack = ({
                     className="flex items-center justify-between"
                   >
                     <p>{item.productTitle}</p>
-                    <p>${item.quantity * item.price}</p>
+                    <p>${(item.quantity * item.price).toFixed(2)}</p>
                   </li>
                 );
               })}
@@ -88,7 +88,9 @@ const PcTrack = ({
             <div className="h-px bg-(--gray) mt-4"></div>
             <span className="flex items-center justify-between mt-3">
               <h5 className="text-[16px] uppercase">subtotal</h5>
-              <h5 className="text-[16px] text-(--dark-gray)">${subtotal}</h5>
+              <h5 className="text-[16px] text-(--dark-gray)">
+                ${subtotal.toFixed(2)}
+              </h5>
             </span>
             <div className="h-px bg-(--gray) mt-2.5"></div>
             <span className="flex items-center justify-between mt-3">
@@ -100,7 +102,7 @@ const PcTrack = ({
             <div className="h-px bg-(--gray) mt-2.5"></div>
             <span className="flex items-center justify-between mt-6 font-bold">
               <h5 className="text-[16px] uppercase">Total</h5>
-              <h5 className="text-[16px]">${subtotal}</h5>
+              <h5 className="text-[16px]">${subtotal.toFixed(2)}</h5>
             </span>
           </div>
         </div>
