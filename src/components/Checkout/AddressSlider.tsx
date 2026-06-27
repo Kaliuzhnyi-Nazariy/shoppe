@@ -33,7 +33,6 @@ const AddressSlider = ({
   return (
     <>
       {fetchingAddresses ? (
-        // "Loading..."
         <div className="flex flex-col items-center justify-center">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>

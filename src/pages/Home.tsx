@@ -38,10 +38,7 @@ const Home = () => {
     >
       <div
         className={` flex flex-col h-full flex-1 ${
-          data.length === 0
-            ? " justify-center items-center"
-            : // ? " flex flex-col h-full flex-1 justify-center items-center"
-              ""
+          data.length === 0 ? " justify-center items-center" : ""
         }`}
       >
         <CategoriesSlider

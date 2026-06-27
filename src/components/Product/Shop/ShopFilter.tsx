@@ -105,7 +105,6 @@ const ShopFilter = () => {
           <input
             type="text"
             onChange={(e) => setSearhValue(e.target.value)}
-            // {...methods.register("search")}
             className="outline-none py-3"
             placeholder="Search..."
             value={search}
@@ -136,8 +135,6 @@ const ShopFilter = () => {
         ) : (
           <Slider
             getAriaLabel={() => "Temperature range"}
-            // value={prices}
-            // onChange={handleChange}
             value={effectivePrices}
             onChange={(_, value) => setPrices(value as number[])}
             min={data?._min.price ?? 0}
@@ -157,13 +154,11 @@ const ShopFilter = () => {
               },
               color: "black",
             }}
-            // getAriaValueText={valuetext}
           />
         )}
         <div className="flex items-center justify-between">
           <span>
             Price: ${effectivePrices[0]} - ${effectivePrices[1]}
-            {/* Price: ${prices[0]} - ${prices[1]} */}
           </span>
           <button className="text-(--accent)">Filter</button>
         </div>
@@ -175,14 +170,12 @@ const ShopFilter = () => {
           <div
             className={`w-8.25 h-5 rounded-full relative transition-colors ${
               inStockCheck ? "bg-(--accent)" : "bg-(--dark-gray)"
-              // inStockCheck ? "bg-black" : "bg-(--dark-gray)"
             }`}
           >
             <span
               className={`bg-white block size-3.25 rounded-full absolute top-1/2 -translate-y-1/2 left-1  transition-transform ${
                 inStockCheck ? "translate-x-full" : "translate-x-0"
               }`}
-              // className={`bg-white block size-3.25 rounded-full absolute top-1/2 -translate-y-1/2 left-1 ${}`}
             ></span>
           </div>
           <input

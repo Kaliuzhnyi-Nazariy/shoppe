@@ -24,16 +24,6 @@ const SignupForm = () => {
     lastName: "",
   };
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   reset,
-  // } = useForm<SignupInterface>({
-  //   mode: "all",
-  //   resolver: zodResolver(userSignupValidation),
-  // });
-
   const methods = useForm<SignupInterface>({
     mode: "all",
     resolver: zodResolver(userSignupValidation),

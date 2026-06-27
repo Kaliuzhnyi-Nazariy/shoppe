@@ -18,7 +18,6 @@ const PcTrack = ({
 }) => {
   const subtotal = order.items.reduce((acc: number, item: IOrderItem) => {
     return acc + item.price * item.quantity;
-    // return (acc += item.price * item.quantity);
   }, 0);
 
   return (

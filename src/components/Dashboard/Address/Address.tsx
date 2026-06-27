@@ -3,23 +3,18 @@ import Form from "./Form/Form";
 import type { IAddress } from "../../../../features/address/interface";
 import { AddressItem } from "./AddressItem";
 import { OrbitProgress } from "react-loading-indicators";
-// import { useQuery } from "@tanstack/react-query";
-// import { getAddresses } from "../../../../features/address/request";
 
 const Address = ({
   addresses,
   addressesPending,
-}: // name,
-{
+}: {
   addresses: IAddress[];
   addressesPending: boolean;
-  // name: string;
 }) => {
   const [addForm, setAddForm] = useState(false);
 
   return (
     <>
-      {/* <h5 className="mt-6 text-[16px]">{name} address</h5> */}
       <button
         type="button"
         className="mt-4.5 text-(--accent)"

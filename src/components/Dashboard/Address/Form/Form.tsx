@@ -16,7 +16,6 @@ import {
 } from "../../../../../features/address/request";
 import { useEffect } from "react";
 import StyledButton from "../../../StyledButton";
-// import Input from "./Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addressValidation } from "../../../../validation";
 import type z from "zod";
@@ -35,9 +34,6 @@ const Form = ({
   type?: "add" | "update";
   closeUpdateForm?: () => void;
   extraStyles?: string;
-  // checkoutHandle?: (
-  //   checkoutAddress: IPostAddress,
-  // ) => React.SetStateAction<IPostAddress>;
 }) => {
   const firstNameValue = useSelector(userFirstName);
   const lastNameValue = useSelector(userLastName);
@@ -54,18 +50,6 @@ const Form = ({
     email: emailValue || "",
     phone: "",
   };
-
-  // const {
-  //   // register,
-  //   reset,
-  //   watch,
-  //   handleSubmit,
-  //   formState: { errors, isValid },
-  // } = useForm({
-  //   mode: "all",
-  //   defaultValues: defaultValue,
-  //   resolver: zodResolver(addressValidation),
-  // });
 
   const methods = useForm({
     mode: "all",
@@ -89,11 +73,7 @@ const Form = ({
     }
   }, []);
 
-  // console.log(!isValid);
-
   const client = useQueryClient();
-
-  // const values = methods.watch();
 
   const { mutate: addAddressFn, isPending: addAddressPending } = useMutation({
     mutationKey: ["addAddress"],
@@ -185,16 +165,7 @@ const Form = ({
         } ${extraStyles ? extraStyles : ""}`}
       >
         {inputFields.map((i) => {
-          return (
-            <Input<IPostAddress>
-              key={i.id}
-              name={i.id}
-              label={i.label}
-              // register={register}
-              // value={i.value}
-              // error={i.error}
-            />
-          );
+          return <Input<IPostAddress> key={i.id} name={i.id} label={i.label} />;
         })}
         {type === "add" && (
           <StyledButton

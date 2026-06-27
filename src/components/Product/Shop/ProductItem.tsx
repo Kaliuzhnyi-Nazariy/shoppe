@@ -32,7 +32,6 @@ const ProductItem = ({
       )}
 
       {product.amount === 0 && (
-        // <div className="absolute size-34 top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-white/50">
         <div
           className={`absolute size-34 ${
             isShop ? "lg:size-75" : "lg:size-94"

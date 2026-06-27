@@ -1,10 +1,4 @@
 export interface UserState {
-  //   user: {
-  //     name: string;
-  //     email: string;
-  //     role: "customer" | "admin" | null;
-  //     id: string;
-  //   };
   user: IUser;
   isLoading: boolean;
   error: string | null;

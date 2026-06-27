@@ -26,10 +26,6 @@ const MobHeader = () => {
   const menuClickFn = () => setMenuOpen((prev) => !prev);
   const isAuthenticated = useSelector(userLoggedIn);
 
-  // const count = useCartCount();
-
-  // console.log(count);
-
   const { data, isPending: fetchingCart } = useQuery({
     queryKey: ["getCart", isAuthenticated],
     queryFn: getCart,
@@ -56,7 +52,6 @@ const MobHeader = () => {
     onSuccess() {
       dispatch(logout());
       menuClickFn();
-      // navigate("/");
 
       setTimeout(() => {
         navigate("/", { replace: true });
@@ -105,7 +100,6 @@ const MobHeader = () => {
   return (
     <div className="lg:hidden">
       <button type="button" className="flex" onClick={() => menuClickFn()}>
-        {/* {menuIsOpen ? <X className="size-4" /> : <Menu className="w-5 h-4.5" />} */}
         <Menu className="w-5 h-4.5" />
       </button>
       <div
@@ -130,11 +124,7 @@ const MobHeader = () => {
                   <ShoppingCart size={18} className="" />
                 </Link>
               )}
-              <button
-                type="button"
-                // className="absolute top-5 right-5"
-                onClick={menuClickFn}
-              >
+              <button type="button" onClick={menuClickFn}>
                 <X className="size-4" />
               </button>
             </div>

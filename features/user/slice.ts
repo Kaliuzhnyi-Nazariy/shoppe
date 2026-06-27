@@ -4,10 +4,6 @@ import { getUser, refreshUser } from "./operations";
 
 const initialState: UserState = {
   user: {
-    // name: "",
-    // email: "",
-    // role: null,
-    // id: "",
     id: "",
     firstName: "",
     lastName: "",
@@ -31,14 +27,6 @@ const pendingHandler = (state: UserState) => {
   state.isLoading = true;
   state.error = null;
 };
-
-// const rejectedHandler = (
-//   state: UserState,
-//   action: PayloadAction<{ message: string } | undefined>,
-// ) => {
-//   state.isLoading = false;
-//   state.error = action.payload?.message || "Sth went wrong!";
-// };
 
 const userSlice = createSlice({
   name: "user",

@@ -3,22 +3,6 @@ import { userLoading, userLoggedIn } from "../../../features/user/selectors";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { OrbitProgress } from "react-loading-indicators";
 
-// const RestrictedRotue = () => {
-//   const isUserLoggedIn = useSelector(userLoggedIn);
-//   const isUserLoading = useSelector(userLoading);
-
-//   console.log({ isUserLoading, isUserLoggedIn });
-
-//   if (isUserLoggedIn) {
-//     return <Navigate to="/account/dashboard" replace />;
-//   } else if (!isUserLoggedIn && isUserLoading) {
-//     return <div className="">Loading...</div>;
-//   }
-//   return <Outlet />;
-// };
-
-// export default RestrictedRotue;
-
 const RestrictedRotue = () => {
   const isUserLoggedIn = useSelector(userLoggedIn);
   const isUserLoading = useSelector(userLoading);

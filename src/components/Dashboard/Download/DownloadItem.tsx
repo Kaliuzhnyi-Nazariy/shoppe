@@ -33,8 +33,6 @@ const DownloadItem = ({
     return `${dateDay}-${dateMonth}-${dateYear}`;
   };
 
-  // console.log(download);
-
   return (
     <div className="flex flex-col gap-4 p-5 text-xs">
       <DownloadInfo title="ID" value={download.id} />

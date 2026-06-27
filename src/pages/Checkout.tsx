@@ -25,7 +25,6 @@ import { v4 } from "uuid";
 import { tokenSetting } from "../../features/user/slice";
 import { getUser } from "../../features/user/operations";
 import { setToken } from "../../features/api/api";
-// import LinkModal from "../components/Modal/LinkModal";
 import { errorToast, successToast } from "../components/toast";
 import StyledButton from "../components/StyledButton";
 
@@ -88,12 +87,10 @@ const Checkout = () => {
   const { mutateAsync, isPending: placingOrder } = useMutation({
     mutationKey: ["placeAnOrder"],
     mutationFn: async (data: PlaceOrder) => {
-      console.log({ data });
       if (data.paymentMethod === "stripe") {
         const stripe = await loadStripe(import.meta.env.VITE_PUBLIC_STRIPE_KEY);
 
         if (!stripe) {
-          console.log("no stripe");
           return;
         }
 
@@ -135,7 +132,6 @@ const Checkout = () => {
       }
     },
     onError(err) {
-      console.log(err);
       const error = err as { response?: { data?: { message: string } } };
       errorToast(error.response?.data?.message || "Something went wrong!");
       navigate("/order/failed");
@@ -183,7 +179,6 @@ const Checkout = () => {
       if (!submitData || !chosenPaymentOption) return;
 
       if (createAccount) {
-        // TO-DO: send password by email
         const generatedPassword = v4();
         const newAccount: SignupInterface = {
           firstName: submitData.billing?.firstName,

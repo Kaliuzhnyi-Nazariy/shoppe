@@ -1,7 +1,6 @@
 import { Search, ShoppingCart, User } from "lucide-react";
 import { Link, useLocation, useSearchParams } from "react-router";
 import MobHeader from "./MobHeader";
-// import { useCartCount } from "../../hooks/useGetLocalCart";
 import Searchbar from "../Searchbar";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -14,19 +13,6 @@ import { getProducts } from "../../../features/products/requests";
 
 const Header = () => {
   const isAuthenticated = useSelector(userLoggedIn);
-
-  // const { data } = useQuery({
-  //   queryKey: ["getCart", isAuthenticated],
-  //   queryFn: getCart,
-  //   enabled: isAuthenticated,
-  // });
-
-  // const { cartCount } = useCart();
-
-  // console.log({ isAuthenticated });
-  // console.log({ data });
-
-  // const count = isAuthenticated ? data.items.length : cartCount;
 
   const { data, isPending: fetchingCart } = useQuery({
     queryKey: ["getCart", isAuthenticated],
@@ -54,10 +40,6 @@ const Header = () => {
   );
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  // const openSearch = () => setIsSearchOpen(true);
-
-  // const closeSearch = () => setIsSearchOpen(true);
 
   const role = useSelector(userRole);
 

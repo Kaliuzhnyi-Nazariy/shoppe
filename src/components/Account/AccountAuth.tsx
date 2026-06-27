@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import Section from "../Section";
 import SigninForm from "./SigninForm";
 import SignupForm from "./SignupForm";
 import FormSwitcher from "./FormSwitcher";

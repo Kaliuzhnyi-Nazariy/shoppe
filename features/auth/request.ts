@@ -32,7 +32,6 @@ export const checkoutSignup = async (data: SignupInterface) => {
 
 export const setPassword = async (data: ISetPassword) => {
   await api.post("/auth/set/password/" + data.token, {
-    // await api.post("/auth/set/password/" + data.idToResetPassword, {
     password: data.password,
     confirmPassword: data.confirmPassword,
   });

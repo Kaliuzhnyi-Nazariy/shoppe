@@ -49,7 +49,6 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
   const addProduct = () => {
     if (isUserLoggedIn) {
       addToCartFn({ productId: data.id!, quantity: productsAddToCart });
-      //   addToCartFn({ productId: productId!, quantity: productsAddToCart });
       return;
     }
 
@@ -76,7 +75,6 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
 
   const adminRedirect = () => {
     navigate("/product/update/" + data.id);
-    // navigate("/product/update/" + productId);
   };
 
   const { mutate: deleteMutate, isPending: deletePending } = useMutation({
@@ -170,7 +168,6 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
                 text="DELETE PRODUCT"
                 loadingText="Deleting product..."
                 fn={() => deleteMutate(data.id)}
-                // fn={() => deleteMutate(productId!)}
                 pending={deletePending}
                 btnType="button"
                 extraStyles="w-full py-1.5"
@@ -181,7 +178,6 @@ const ProductInfo = ({ data }: { data: IProduct }) => {
                 text={data.isArchived ? "UNARCHIVE PRODUCT" : "ARCHIVE PRODUCT"}
                 loadingText="Archiving product..."
                 fn={() => archiveProductFn(data.id!)}
-                // fn={() => archiveProductFn(productId!)}
                 pending={archivingPending}
                 btnType="button"
                 extraStyles="w-full py-1.5"

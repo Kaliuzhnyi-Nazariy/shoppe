@@ -10,7 +10,6 @@ export type Categories =
 export interface IProduct {
   id: string;
   photos: { id: string; link: string }[];
-  // photos: string[];
   title: string;
   description: string;
   additionalInformation: string;
@@ -23,7 +22,6 @@ export interface IProduct {
 
 export interface ICreateProduct {
   photos: FileList;
-  // photos: File[];
   title: string;
   description: string;
   additionalInformation?: string;
@@ -34,5 +32,4 @@ export interface ICreateProduct {
 
 export interface IProductFull extends IProduct {
   reviewCount: number;
-  // reviews: [];
 }

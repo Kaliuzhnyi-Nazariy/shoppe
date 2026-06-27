@@ -5,14 +5,6 @@ export const placeOrder = async (orderData: PlaceOrder) => {
   return (await api.post("/orders/place", orderData)).data;
 };
 
-// export const getMyOrders = async () => {
-//   return (await api.get("/orders/my")).data;
-// };
-
-// export const getAllOrders = async () => {
-//   return (await api.get("/orders/all")).data;
-// };
-
 export const getOrders = async (search?: string) => {
   return (await api.get("/orders", { params: { search } })).data;
 };
@@ -24,14 +16,6 @@ export const getOrderById = async (id: string) => {
 export const cancelOrder = async (id: string) => {
   return (await api.patch("/orders/cancel/" + id)).data;
 };
-
-// export const updateOrderStatus = async ({
-//   id,
-//   // status,
-// }: {
-//   id: string;
-//   // status: OrderStatus;
-// }) => {
 
 export const updateOrderStatus = async (id: string) => {
   return (await api.patch("/orders/status/" + id)).data;

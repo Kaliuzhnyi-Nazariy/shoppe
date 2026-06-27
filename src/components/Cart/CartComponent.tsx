@@ -21,10 +21,6 @@ const CartComponent = () => {
 
   const { cart } = useCart();
 
-  // const showingCondition =
-  //   (isAuthenticated && data && data?.items.length > 0) ||
-  //   (!isAuthenticated && cart?.length > 0);
-
   const dataToSend: ICartItem[] =
     isAuthenticated && data ? data.items : cart ?? [];
 
@@ -39,7 +35,6 @@ const CartComponent = () => {
   return (
     <>
       {isAuthenticated && isPending ? (
-        // <p>Loading...</p>
         <div className="flex flex-col items-center justify-center flex-1">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>

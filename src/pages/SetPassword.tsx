@@ -67,12 +67,9 @@ const SetPassword = () => {
 
   const submitHandle: SubmitHandler<IPasswordSet> = (data) => {
     if (tokenId) {
-      // console.log("with tokenId: ", tokenId);
       setPasswordFn({ ...data, token: tokenId });
     }
     if (token) {
-      console.log({ data });
-      console.log({ token });
       resetPasswordFn({ ...data, token: token });
     }
   };

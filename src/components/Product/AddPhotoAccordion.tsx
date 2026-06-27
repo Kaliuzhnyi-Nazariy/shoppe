@@ -12,13 +12,10 @@ const AddPhotoAccordion = ({
   onFilesChange,
 }: {
   images: { id: string; link: string }[];
-  // images: string[];
   isOutOfStock?: boolean;
   clickHandle?: ({ id, link }: { id: string; link: string }) => void;
-  // clickHandle?: ({ id }: { id: string }) => void;
   onFilesChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  // console.log({ images });
   const [slidesCount, setSlidesCount] = useState(0);
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -159,7 +156,6 @@ const AddPhotoAccordion = ({
           />
         </div>
       )}
-      {/* </div > */}
     </div>
   );
 };
@@ -190,148 +186,3 @@ function Arrow(props: {
 }
 
 export default AddPhotoAccordion;
-
-//  <div ref={sliderRef} className="keen-slider relative">
-//           {/* {slides.map((i) => {
-//             if (i === "UPLOAD") {
-//               return (
-//                 <div
-//                   key="upload"
-//                   className="keen-slider__slide flex items-center justify-center"
-//                 >
-//                   <p className="absolute">{i}</p>
-//                   <label
-//                     htmlFor="photos"
-//                     className="w-full h-80 border border-dashed border-(--dark-gray) rounded-sm flex flex-col items-center justify-center"
-//                   >
-//                     <p>Add photos (max 10 files)</p>
-//                     <p>(optional)</p>
-//                   </label>
-
-//                   <input
-//                     type="file"
-//                     hidden
-//                     id="photos"
-//                     accept="image/jpeg,image/png"
-//                     multiple
-//                     {...register("photos")}
-//                   />
-//                 </div>
-//               );
-//             } else {
-//               return (
-//                 <div
-//                   className="keen-slider__slide flex items-center justify-center h-93.5 relative"
-//                   key={i}
-//                 >
-//                   <p className="absolute">{i}</p>
-
-//                   <img
-//                     className=" max-w-full max-h-full object-contain"
-//                     src={i}
-//                     key={i}
-//                     onClick={() => {
-//                       if (clickHandle) {
-//                         clickHandle(i);
-//                       }
-//                     }}
-//                     onLoad={() => instanceRef.current?.update()}
-//                   />
-
-//                   {isOutOfStock && (
-//                     <span className="uppercase px-3 py-1.5 absolute bg-white/50 rounded-2xl top-1 left-1 text-xs">
-//                       out of stock
-//                     </span>
-//                   )}
-//                 </div>
-//                 // <div className="keen-slider__slide relative">
-//                 //   <img
-//                 //     className=" w-full h-93.5 object-contain"
-//                 //     src={i}
-//                 //     key={i}
-//                 //     onClick={() => {
-//                 //       if (clickHandle) {
-//                 //         clickHandle(i);
-//                 //       }
-//                 //     }}
-//                 //   />
-
-//   {isOutOfStock && (
-//     <span className="uppercase px-3 py-1.5 absolute bg-white/50 rounded-2xl top-1 left-1 text-xs">
-//       out of stock
-//     </span>
-//   )}
-//                 // </div>
-//               );
-//             }
-//           })} */}
-//           {images.map((i, idx) => {
-//             return (
-//               <div
-//                 className="keen-slider__slide flex items-center justify-center h-93.5 relative"
-//                 // key={`${i}-${idx}`}
-//                 key={images.length}
-//               >
-//                 <img
-//                   className=" max-w-full max-h-full object-contain"
-//                   src={i}
-//                   key={`${i}-${idx}`}
-//                   onClick={() => {
-//                     if (clickHandle) {
-//                       clickHandle(i);
-//                     }
-//                   }}
-//                   onLoad={() => instanceRef.current?.update()}
-//                 />
-
-//                 {isOutOfStock && (
-//                   <span className="uppercase px-3 py-1.5 absolute bg-white/50 rounded-2xl top-1 left-1 text-xs">
-//                     out of stock
-//                   </span>
-//                 )}
-//               </div>
-
-//               // <div className="keen-slider__slide relative">
-//               //   <img
-//               //     className=" w-full h-93.5 object-contain"
-//               //     src={i}
-//               //     key={i}
-//               //     onClick={() => {
-//               //       if (clickHandle) {
-//               //         clickHandle(i);
-//               //       }
-//               //     }}
-//               //   />
-
-//               //   {isOutOfStock && (
-//               //     <span className="uppercase px-3 py-1.5 absolute bg-white/50 rounded-2xl top-1 left-1 text-xs">
-//               //       out of stock
-//               //     </span>
-//               //   )}
-//               // </div>
-//             );
-//           })}
-
-//           {!isMax && (
-//             <div
-//               key="upload"
-//               className="keen-slider__slide flex items-center justify-center"
-//             >
-//               <label
-//                 htmlFor="photos"
-//                 className="w-full h-80 border border-dashed border-(--dark-gray) rounded-sm flex flex-col items-center justify-center"
-//               >
-//                 <p>Add photos (max 10 files)</p>
-//                 <p>(optional)</p>
-//               </label>
-
-//               <input
-//                 type="file"
-//                 hidden
-//                 id="photos"
-//                 accept="image/jpeg,image/png"
-//                 multiple
-//                 {...register("photos")}
-//               />
-//             </div>
-//           )}

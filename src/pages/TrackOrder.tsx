@@ -12,7 +12,6 @@ import {
 } from "../../features/order/requests";
 import { useEffect } from "react";
 import { OrbitProgress } from "react-loading-indicators";
-// import type { IOrderItem } from "../../features/order/interface";
 import { useSelector } from "react-redux";
 import { userRole } from "../../features/user/selectors";
 import StyledButton from "../components/StyledButton";
@@ -50,8 +49,6 @@ const TrackOrder = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
-
-  // console.log({ order });
 
   useEffect(() => {
     if (orderId) {
@@ -181,17 +178,3 @@ const TrackOrder = () => {
 };
 
 export default TrackOrder;
-
-// const DataField = ({
-//   name,
-//   orderData,
-// }: {
-//   name: string;
-//   orderData?: string;
-// }) => {
-//   return (
-//     <p>
-//       <span className="font-bold">{name}:</span> {orderData && orderData}
-//     </p>
-//   );
-// };

@@ -1,19 +1,8 @@
-import {
-  Route,
-  Routes,
-  // useLocation
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-// import "keen-slider/keen-slider.min.css";
-// import "./index.css";
-
-// import ProductList from "./components/Product/ProductList";
 import { lazy, useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
-// import { getUser } from "../features/user/operations";
-// import Searchbar from "./components/Searchbar";
-// import Slider from "./components/Slider";
-// import Product from "./components/Product/Product";
+
 import HeaderAndFooter from "./Layout/HeaderAndFooter";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import RestrictedRotue from "./components/Routes/RestrictedRotue";
@@ -50,7 +39,7 @@ const ForgetPage = lazy(() => import("./pages/ForgetPassword"));
 const TrackOrderPage = lazy(() => import("./pages/TrackOrder"));
 
 const LogoutPage = lazy(() => import("./pages/Logout"));
-// const SearchOrderPage = lazy(() => import("./pages/SearchOrder"));
+
 const HelpPage = lazy(() => import("./pages/Help/Help"));
 const TermsPage = lazy(() => import("./pages/Help/Terms"));
 const PolicyPage = lazy(() => import("./pages/Help/Privacy"));
@@ -80,12 +69,7 @@ function App() {
             <Route element={<RestrictedRotue />}>
               <Route path="auth" element={<AccountPage />} />
             </Route>
-            {/* <Route
-              element={<PrivateRoute allowedRoles={["customer", "admin"]} />}
-            >
-              <Route path="dashboard" element={<DashboardAccountPage />} />
-            </Route>
-          </Route> */}
+
             <Route
               element={<PrivateRoute allowedRoles={["customer", "admin"]} />}
             >
@@ -113,12 +97,7 @@ function App() {
           </Route>
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:productId" element={<ProductsPage />} />
-          {/* <Route
-            element={<PrivateRoute allowedRoles={["customer", "admin"]} />}
-          >
-            <Route path="/cart" element={<CartPage />} />
-            </Route> */}
-          {/* <Route path="/order/search" element={<SearchOrderPage />} /> */}
+
           <Route path="/order/track" element={<TrackOrderPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

@@ -72,11 +72,6 @@ const CartItem = ({
     deleteFromCart: deleteFromLocalCart,
   } = useCart();
 
-  // useEffect(() => {
-  //   if (item) {
-  //     setQuantity(item.quantity);
-  //   }
-  // }, [item]);
   const addQuantityState = () => {
     setQuantity((prev) => prev + 1);
   };
@@ -90,84 +85,18 @@ const CartItem = ({
   };
 
   const addQuantity = (productId: string) => {
-    // const productMap = new Map(data?.items.map((i) => [i.id, i.product]));
-
-    // // console.log(productMap.get(productId));
-    // const isQuantityIsLowerThanProductStock =
-    //   (productMap.get(productId)?.amount || 0) < quantity + 1;
-
-    // console.log(productMap.get(productId)?.amount || 0);
-
-    // console.log("quantity: ", quantity + 1);
-
-    // console.log({ isQuantityIsLowerThanProductStock });
-
-    // if (isQuantityIsLowerThanProductStock) {
-    //     console.log("added");
-    // }
-
-    // if (quantity + 1 <= productAmount) {
-    //   setQuantity(quantity + 1);
-    // }
     if (isAuthenticated) {
       addToCartFn({ productId, quantity: 1 });
     } else {
       addQuantityInLocal(productId, addQuantityState);
-
-      // const localCart = localStorage.getItem("cart");
-
-      // const parsedLocalCart = localCart ? JSON.parse(localCart) : [];
-      // const existedProduct = parsedLocalCart.find(
-      //   (c: { product: { id: string } }) => c.product.id === productId,
-      // );
-
-      // if (existedProduct) {
-      //   existedProduct.quantity += 1;
-      //   setQuantity((prev) => prev + 1);
-      // }
-
-      // localStorage.setItem("cart", JSON.stringify(parsedLocalCart));
-      // window.dispatchEvent(new Event("updateCart"));
-
-      // window.dispatchEvent(new Event("cartCountUpdate"));
-      // console.log("add: ", { productId });
     }
-
-    // console.log({ productId });
-    // console.log({ productQuantity });
   };
 
   const removeQuantity = (productId: string) => {
-    // console.log("remove one: ", { productId });
-    // removeFromCartFn({ productId, quantity: 1 });
-    // if (quantity !== 1) {
-    //   setQuantity(quantity - 1);
-    // }
-
     if (isAuthenticated) {
       removeFromCartFn({ productId, quantity: 1 });
     } else {
       reduceInLocal(productId, reduceQuantityState);
-
-      //   const localCart = localStorage.getItem("cart");
-
-      //   const parsedLocalCart = localCart ? JSON.parse(localCart) : [];
-      //   const existedProduct = parsedLocalCart.find(
-      //     (c: { product: { id: string } }) => c.product.id === productId,
-      //   );
-
-      // if (existedProduct) {
-      //   if (existedProduct.quantity !== 1) {
-      //     existedProduct.quantity -= 1;
-      //   }
-      // if (productQuantity !== 1) {
-      //   setQuantity((prev) => prev - 1);
-      // }
-      // }
-
-      //   localStorage.setItem("cart", JSON.stringify(parsedLocalCart));
-      //   window.dispatchEvent(new Event("updateCart"));
-      // }
     }
   };
 
@@ -177,21 +106,6 @@ const CartItem = ({
     } else {
       deleteFromLocalCart(productId);
       successToast("Product is deleted from cart");
-
-      // const localCart = localStorage.getItem("cart");
-
-      // const parsedLocalCart = localCart ? JSON.parse(localCart) : [];
-      // const productIndex = parsedLocalCart.findIndex(
-      //   (c: { product: { id: string } }) => c.product.id === productId,
-      // );
-
-      // if (productIndex !== -1) {
-      //   parsedLocalCart.splice(productIndex, 1);
-      // }
-
-      // localStorage.setItem("cart", JSON.stringify(parsedLocalCart));
-      // window.dispatchEvent(new Event("cartCountUpdate"));
-      // window.dispatchEvent(new Event("updateCart"));
     }
   };
 

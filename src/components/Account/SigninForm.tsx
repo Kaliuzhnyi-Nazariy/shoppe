@@ -67,9 +67,6 @@ const SigninForm = () => {
     }
   };
 
-  // const emailValue = watch("email");
-  // const passwordValue = watch("password");
-
   return (
     <FormProvider {...methods}>
       <form className="mt-22 " onSubmit={methods.handleSubmit(submit)}>

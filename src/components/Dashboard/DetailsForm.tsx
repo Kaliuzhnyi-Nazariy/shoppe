@@ -16,7 +16,6 @@ const DetailsForm = () => {
   const {
     register,
     handleSubmit,
-    // reset,
     formState: { errors },
     watch,
   } = useForm<DetailsForm>({

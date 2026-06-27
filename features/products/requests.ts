@@ -1,18 +1,5 @@
 import api from "../api/api";
 import type { Categories } from "./interface";
-// import type { ICreateProduct } from "./interface";
-
-// export const getProducts = async () => {
-//   return (await api.get("/products")).data;
-// };
-
-// export const getProducts = async (search?: string) => {
-//   return (
-//     await api.get("/products", {
-//       params: { search: search },
-//     })
-//   ).data;
-// };
 
 export const getProducts = async ({
   search,
@@ -29,8 +16,6 @@ export const getProducts = async ({
   sort?: string;
   category?: Categories | null;
 }) => {
-  // console.log({ params });
-
   if (!category) {
     return (
       await api.get("/products", {

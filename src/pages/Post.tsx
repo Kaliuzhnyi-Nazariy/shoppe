@@ -6,8 +6,6 @@ interface Post {
   title: string;
   author: string;
   date: string;
-  // headerPhoto?: string;
-  // photo: string,
   article: string;
 }
 
