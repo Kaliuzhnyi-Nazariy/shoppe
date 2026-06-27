@@ -88,6 +88,7 @@ const Checkout = () => {
   const { mutateAsync, isPending: placingOrder } = useMutation({
     mutationKey: ["placeAnOrder"],
     mutationFn: async (data: PlaceOrder) => {
+      console.log({ data });
       if (data.paymentMethod === "stripe") {
         const stripe = await loadStripe(import.meta.env.VITE_PUBLIC_STRIPE_KEY);
 
@@ -120,10 +121,7 @@ const Checkout = () => {
 
       if (tokenId) {
         navigate("/set/password?token=" + tokenId);
-      } else if (isUserLoggedIn) {
-        navigate("/");
       }
-
       successToast("Order is placed");
 
       if (data.paymentMethod !== "stripe") {
@@ -137,6 +135,7 @@ const Checkout = () => {
       }
     },
     onError(err) {
+      console.log(err);
       const error = err as { response?: { data?: { message: string } } };
       errorToast(error.response?.data?.message || "Something went wrong!");
       navigate("/order/failed");
