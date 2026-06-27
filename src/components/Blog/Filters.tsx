@@ -52,7 +52,6 @@ const Filters = () => {
             <input
               type="text"
               onChange={(e) => setSearhValue(e.target.value)}
-              // {...methods.register("search")}
               className="outline-none py-3 "
               placeholder="Search..."
               value={search}

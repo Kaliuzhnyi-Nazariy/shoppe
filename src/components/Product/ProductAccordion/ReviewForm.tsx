@@ -115,10 +115,6 @@ const ReviewForm = ({
     typeof commentValues === "string" && commentValues.trim().length > 0;
 
   const handleSubmit: SubmitHandler<IReviewForm> = (data) => {
-    // console.log(data);
-
-    // productId -
-
     const returnComment =
       data.comment && data.comment.length > 0 ? data.comment : "";
 
@@ -132,7 +128,6 @@ const ReviewForm = ({
           reviewId: reviewData.id,
         });
       }
-      // console.log(data);
       return;
     }
 
@@ -184,7 +179,6 @@ const ReviewForm = ({
             {...methods.register("comment")}
             className="border-b border-b-(--light-gray)  outline-none py-1.5 w-full resize-none max-h-30 relative"
             rows={1}
-            // disabled={disabled}
           />
 
           {methods.formState.errors && (

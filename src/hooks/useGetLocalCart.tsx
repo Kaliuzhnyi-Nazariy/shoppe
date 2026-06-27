@@ -52,10 +52,6 @@ export const useCart = () => {
         c.product.id === productId,
     );
 
-    // if (existedProduct && existedProduct.quantity !== 1) {
-    //   existedProduct.quantity -= 1;
-    // }
-
     if (existedProduct) {
       if (existedProduct.quantity !== 1) {
         existedProduct.quantity -= 1;

@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const fileSchema = z.instanceof(FileList);
-// const fileSchema = z.instanceof(File);
 
 const CATEGORY_OPTIONS = [
   "ELECTRONICS",
@@ -15,7 +14,6 @@ const CATEGORY_OPTIONS = [
 
 export const productValidation = z.object({
   photos: fileSchema,
-  // photos: z.array(fileSchema).max(10),
   title: z.string().min(2, "Title should be longer than 2 characters"),
   description: z
     .string()

@@ -1,18 +1,15 @@
 import type React from "react";
 
 export function Arrow(props: {
-  // disabled: boolean;
   left?: boolean;
   onClick: (e: React.MouseEvent) => void;
   extraStyles?: string;
 }) {
-  // const disabled = props.disabled ? " arrow--disabled" : "";
   return (
     <svg
       onClick={props.onClick}
       className={`arrow ${props.left ? "arrow--left" : "arrow--right"} 
       ${props.extraStyles}`}
-      // ${disabled}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >

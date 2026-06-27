@@ -6,8 +6,6 @@ import DownloadList from "../../components/Dashboard/Download/DownloadList";
 import { OrbitProgress } from "react-loading-indicators";
 
 const Downloads = () => {
-  // const downloads = [];
-
   const { data: downloads = [], isFetching } = useQuery({
     queryKey: ["getData"],
     queryFn: getDownloads,

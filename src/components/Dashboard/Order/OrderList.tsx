@@ -13,8 +13,6 @@ const OrderList = ({
     buyerId: string;
   }[];
 }) => {
-  //   console.log(data);
-
   return (
     <>
       <ul className="flex flex-col gap-10 max-h-[40vh] overflow-y-auto min-[1024px]:hidden ">

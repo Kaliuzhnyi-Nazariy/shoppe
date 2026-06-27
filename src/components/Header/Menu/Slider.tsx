@@ -1,17 +1,9 @@
-import {
-  // useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { Arrow } from "./MobileHeaderMenuArrow";
-// import { Outlet } from "react-router";
 import "./styles.css";
-import {
-  Link,
-  // useLocation
-} from "react-router";
-// import Section from "../../Section";
+import { Link } from "react-router";
 
 const Slider = ({ extraStyles = "" }: { extraStyles?: string }) => {
   const [, setCurrentSlide] = useState(0);
@@ -38,41 +30,6 @@ const Slider = ({ extraStyles = "" }: { extraStyles?: string }) => {
 
   const [chosenPage, setChosenPage] = useState(0);
 
-  // const routes = [
-  //   "/account/dashboard",
-  //   "/account/dashboard/orders",
-  //   "/account/dashboard/downloads",
-  //   "/account/dashboard/addresses",
-  //   "/account/dashboard/details",
-  //   "/account/dashboard/logout",
-  // ];
-
-  // const { pathname } = useLocation();
-
-  // const chosenPage = routes.findIndex((page) => {
-  //   return pathname.startsWith(page);
-  // });
-
-  // console.log(index);
-
-  // useEffect(() => {
-  //   // console.log({ pathname });
-
-  //   const index = routes.findIndex((page) => {
-  //     return pathname == page;
-  //   });
-
-  //   // console.log(index);
-
-  //   setChosenPage(index);
-  // }, [pathname, routes]);
-
-  // console.log({ chosenPage });
-
-  // const setPage = (idx: number) => {
-  //   setChosenPage(idx);
-  // };
-
   const getSlideClass = (index: number) =>
     "keen-slider__slide flex items-center justify-center text-center border-b shrink-0 h-full pb-4 min-[1024px]:pb-8.5 text-[16px] min-[1024px]:text-xl " +
     (index === chosenPage
@@ -84,16 +41,8 @@ const Slider = ({ extraStyles = "" }: { extraStyles?: string }) => {
       <div
         className={"relative w-full mb-10 min-[1024px]:px-24 " + extraStyles}
       >
-        {/* <div className={"relative w-full h-11 mb-10 " + extraStyles}> */}
         <div className="overflow-hidden px-7 h-full w-full min-[768px]:px-0">
           <div ref={sliderRef} className="keen-slider h-full  ">
-            {/* <Link
-              to={"/account/dashboard"}
-              className={getSlideClass(0)}
-              // onClick={() => setChosenPage(0)}
-            >
-              Dashboard
-            </Link> */}
             <Link
               to="/account/dashboard"
               className={getSlideClass(0)}
@@ -162,7 +111,6 @@ const Slider = ({ extraStyles = "" }: { extraStyles?: string }) => {
           </>
         )}
       </div>
-      {/* <Outlet /> */}
     </>
   );
 };

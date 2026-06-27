@@ -26,13 +26,6 @@ const StyledButton = ({
   return (
     <button
       type={btnType}
-      // className={`${
-      //   extraStyles ? extraStyles : "w-full py-2"
-      // } rounded-sm border transition-colors duration-200 cursor-pointer disabled:opacity-50 ${
-      //   type === "primary"
-      //     ? "bg-black text-white  border-transparent focus:bg-white focus:text-black focus:border-black hover:bg-white hover:text-black hover:border-black"
-      //     : "border-black text-black bg-white hover:border-transparent hover:bg-black hover:text-white focus:border-transparent focus:bg-black focus:text-white"
-      // }  `}
       className={`${
         extraStyles ? extraStyles : "w-full py-2"
       } rounded-sm border transition-colors duration-200 cursor-pointer disabled:opacity-50 ${

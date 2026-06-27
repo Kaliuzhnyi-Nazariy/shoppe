@@ -49,7 +49,7 @@ const ProductExrtraTabs = ({
           <Tabs
             value={value}
             onChange={(_, newValue) => setValue(newValue)}
-            variant="standard" // important (no fullWidth)
+            variant="standard"
             slotProps={{
               indicator: {
                 style: { height: "1px", backgroundColor: "black" },

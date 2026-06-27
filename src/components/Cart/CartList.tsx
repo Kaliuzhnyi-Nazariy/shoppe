@@ -13,7 +13,6 @@ const CartList = ({ data }: { data: ICartItem[] }) => {
           <CartItem
             item={item}
             key={item.id}
-            // productAmount={5}
             productAmount={productAmountList.get(item.product.id)!}
           />
         );

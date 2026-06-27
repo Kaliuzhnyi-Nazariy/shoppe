@@ -36,8 +36,7 @@ const Contact = () => {
 
   const isFilled = value && value.trim().length > 0;
 
-  const submitHandle: SubmitHandler<IContact> = (data) => {
-    console.log(data);
+  const submitHandle: SubmitHandler<IContact> = () => {
     methods.reset({
       email: "",
       firstName: "",

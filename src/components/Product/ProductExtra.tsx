@@ -5,10 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getReviews } from "../../../features/review/requests";
 
 const ProductExtra = ({ data }: { data: IProductFull }) => {
-  const {
-    data: reviews,
-    // isFetching
-  } = useQuery({
+  const { data: reviews } = useQuery({
     queryKey: ["getReview", data.id],
     queryFn: () => getReviews(data.id),
   });

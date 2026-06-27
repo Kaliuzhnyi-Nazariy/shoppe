@@ -4,12 +4,7 @@ import ProductList from "../components/Product/Shop/ProductList";
 import Section from "../components/Section";
 import { getProducts } from "../../features/products/requests";
 import ShopFilter from "../components/Product/Shop/ShopFilter";
-// import { FormProvider, useForm } from "react-hook-form";
-// import Slider from "@mui/material/Slider";
-// import { useState } from "react";
-// import { Search } from "lucide-react";
 import { useSearchParams } from "react-router";
-// import StyledButton from "../components/Dashboard/Address/StyledButton";
 
 const Shop = () => {
   const [params] = useSearchParams();
@@ -41,13 +36,7 @@ const Shop = () => {
   });
 
   return (
-    <Section
-      // extraStyles={
-      //   "flex flex-col pb-25 h-full flex-1 " +
-      //   `${data.length === 0 ? "justify-center items-center" : ""}`
-      // }
-      extraStyles={"flex flex-col pb-25 h-full flex-1 "}
-    >
+    <Section extraStyles={"flex flex-col pb-25 h-full flex-1 "}>
       <h1
         className={`${
           data.length === 0 ? "hidden" : "text-[32px] font-semibold"

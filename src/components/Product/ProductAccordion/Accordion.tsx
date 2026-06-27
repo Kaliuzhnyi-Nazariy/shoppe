@@ -97,18 +97,15 @@ export const ProductAccordion = ({
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          // expandIcon={reviews !== 0 && <ExpandMoreIcon />}
           aria-controls="panel3-content"
           id="panel3-header"
           sx={{ px: 0, ":disabled": { opacity: "100%" } }}
-          // disabled={reviews === 0}
         >
           <Typography component="span" sx={{ fontSize: "12px" }}>
             Reviews ({reviewsCount}){/* Reviews ({reviews}) */}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* <ReviewForm /> */}
           <ReviewAddComponent isUserLeftReview={isUserLeftReview} />
 
           <ReviewsList reviews={reviews} reviewsCount={reviewsCount} />

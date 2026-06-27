@@ -1,11 +1,5 @@
 import { useKeenSlider } from "keen-slider/react";
-// import { useState } from "react";
 import type { Categories } from "../../../features/products/interface";
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-// import {
-//   getProducts,
-//   getProductsByCategory,
-// } from "../../../features/products/requests";
 
 const CategoriesSlider = ({
   isPending = false,
@@ -22,7 +16,6 @@ const CategoriesSlider = ({
       spacing: 8,
       origin: "auto",
     },
-    // loop: true,
     mode: "free",
     breakpoints: {
       "(min-width: 1024px)": {

@@ -1,7 +1,4 @@
-import {
-  // Link,
-  useNavigate,
-} from "react-router";
+import { useNavigate } from "react-router";
 import type { ICartItem } from "../../../features/cart/interface";
 import StyledButton from "../StyledButton";
 

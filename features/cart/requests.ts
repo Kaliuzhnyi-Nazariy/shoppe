@@ -3,14 +3,9 @@ import type { ICartItem } from "./interface";
 
 export const getCart = async () => {
   const data = (await api.get("/cart")).data;
-  // console.log("data in request: ", data);
   return data;
 };
 
-// export const addMany = async (data: {
-//   productId: string;
-//   quantity: number;
-// }) => {
 export const addMany = async (data: ICartItem) => {
   return (await api.post("/cart/add/many", data)).data;
 };

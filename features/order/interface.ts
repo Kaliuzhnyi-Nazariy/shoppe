@@ -1,22 +1,3 @@
-// enum ShippingOptions {
-//   free,
-//   paid,
-// }
-
-// enum OrderStatus {
-//   pending,
-//   paid,
-//   shipping,
-//   delivered,
-//   canceled,
-// }
-
-// enum PaymentMethods {
-//   cashOnDelivery,
-//   stripe,
-//   checkPayment,
-// }
-
 type ShippingOptions = "free" | "paid";
 
 export type OrderStatus =
@@ -73,8 +54,6 @@ export interface PlaceOrder {
   notes?: string;
 
   items: IOrderItem[];
-
-  // items OrderItem[]
 }
 
 export interface IOrder {
@@ -108,7 +87,7 @@ export interface IOrder {
   status: OrderStatus;
 
   paymentMethod: PaymentMethods;
-  payment?: any;
+  payment?: unknown;
 
   totalPrice: number;
   notes?: string | null;

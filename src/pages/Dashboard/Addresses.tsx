@@ -5,16 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getAddresses } from "../../../features/address/request";
 
 const Addresses = () => {
-  // const billingAddresses: string[] = [];
-  // const shippingAddresses: string[] = [];
-
-  // const { data, isPending } = useQuery({
   const { data: billingAddresses, isPending: billingPending } = useQuery({
     queryKey: ["getAddresses"],
     queryFn: getAddresses,
   });
-
-  // console.log(data);
 
   return (
     <Section extraStyles="mb-24" changePaddings="min-[1024px]:px-24">
@@ -25,14 +19,11 @@ const Addresses = () => {
       <ul className="flex flex-col gap-12">
         <li>
           <Address
-            // name="Billing"
             addresses={billingAddresses}
             addressesPending={billingPending}
           />
         </li>
-        <li>
-          {/* <Address name="Shipping" addresses={shippingAddresses} /> */}
-        </li>
+        <li></li>
       </ul>
     </Section>
   );

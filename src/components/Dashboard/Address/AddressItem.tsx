@@ -27,7 +27,6 @@ export const AddressItem = ({ address }: { address: IAddress }) => {
   return (
     <>
       {isPending ? (
-        // "Loading..."
         <div className="flex flex-col items-center justify-center">
           <OrbitProgress color="var(--gray)" size="small" />
         </div>
@@ -80,9 +79,6 @@ export const AddressItem = ({ address }: { address: IAddress }) => {
               </>
             )}
             {!updateFrom && (
-              // <button type="button" onClick={() => setUpdateForm(!updateFrom)}>
-              //   Update
-              // </button>
               <div className="mt-4 flex gap-2 ">
                 <StyledButton
                   text="Delete"
