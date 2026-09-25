@@ -22,7 +22,7 @@ const SigninForm = () => {
 
   const methods = useForm<SigninInterface>({
     defaultValues,
-    mode: "all",
+    mode: "onChange",
     resolver: zodResolver(signInValidation),
   });
 

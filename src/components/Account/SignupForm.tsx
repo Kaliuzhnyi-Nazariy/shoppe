@@ -25,7 +25,7 @@ const SignupForm = () => {
   };
 
   const methods = useForm<SignupInterface>({
-    mode: "all",
+    mode: "onChange",
     resolver: zodResolver(userSignupValidation),
   });
 
