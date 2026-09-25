@@ -4,7 +4,7 @@ import { userLoggedIn } from "../../../features/user/selectors";
 import { useQuery } from "@tanstack/react-query";
 import { getAddresses } from "../../../features/address/request";
 import type { IAddress } from "../../../features/address/interface";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../Loader";
 
 const AddressSlider = ({
   clickHandle,
@@ -33,8 +33,11 @@ const AddressSlider = ({
   return (
     <>
       {fetchingAddresses ? (
-        <div className="flex flex-col items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
+        // <div className="flex flex-col items-center justify-center">
+        //   <OrbitProgress color="var(--gray)" size="small" />
+        // </div>
+        <div className="flex flex-col flex-1">
+          <Loader />
         </div>
       ) : (
         <>

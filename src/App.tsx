@@ -46,6 +46,7 @@ const PolicyPage = lazy(() => import("./pages/Help/Privacy"));
 
 const AboutPage = lazy(() => import("./pages/About"));
 const ContactPage = lazy(() => import("./pages/Contact"));
+const ReturnsPage = lazy(() => import("./pages/ShippingAndReturns"));
 
 const BlogPage = lazy(() => import("./pages/Blog"));
 const PostPage = lazy(() => import("./pages/Post"));
@@ -109,6 +110,7 @@ function App() {
 
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/returns" element={<ReturnsPage />} />
 
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/post/:postId" element={<PostPage />} />

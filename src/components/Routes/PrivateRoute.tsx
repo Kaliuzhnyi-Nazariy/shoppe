@@ -5,7 +5,7 @@ import {
   userRole,
 } from "../../../features/user/selectors";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../Loader";
 
 const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const role = useSelector(userRole);
@@ -15,11 +15,7 @@ const PrivateRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const location = useLocation();
 
   if (isUserLoading) {
-    return (
-      <div className="flex flex-col flex-1 items-center justify-center">
-        <OrbitProgress color="var(--gray)" size="small" />
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!isUserLoggedIn && isUserLoading) {

@@ -18,13 +18,13 @@ const FormSwitcher = ({
 
       <ul className="flex items-center justify-around h-full uppercase relative z-10">
         <li
-          className="w-1/2 flex items-center justify-center"
+          className="w-1/2 flex items-center justify-center cursor-pointer"
           onClick={() => setAuth("signin")}
         >
           sign in
         </li>
         <li
-          className="w-1/2 flex items-center justify-center"
+          className="w-1/2 flex items-center justify-center cursor-pointer"
           onClick={() => setAuth("register")}
         >
           register

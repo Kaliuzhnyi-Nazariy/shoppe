@@ -62,6 +62,7 @@ const Check = ({
                 checked={chosenPaymentMethod == "checkPayment"}
                 name="paymentMethod"
                 id="checkPayment"
+                className="accent-(--accent)"
                 onChange={() => setPaymentOption("checkPayment")}
               />
               <p>Check payments</p>
@@ -74,7 +75,7 @@ const Check = ({
                 name="paymentMethod"
                 checked={chosenPaymentMethod == "cashOnDelivery"}
                 id="cashOnDelivery"
-                className="checked:outline-black"
+                className="accent-(--accent)"
                 onChange={() => setPaymentOption("cashOnDelivery")}
               />
               <p>Cash on delivery</p>
@@ -86,6 +87,7 @@ const Check = ({
                 type="radio"
                 checked={chosenPaymentMethod == "stripe"}
                 name="paymentMethod"
+                className="accent-(--accent)"
                 id="stripe"
                 onChange={() => setPaymentOption("stripe")}
               />

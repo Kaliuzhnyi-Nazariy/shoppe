@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import NoProducts from "../components/Product/Shop/NoProducts";
+// import NoProducts from "../components/Product/Shop/NoProducts";
 import ProductList from "../components/Product/Shop/ProductList";
 import Section from "../components/Section";
 import { getProducts } from "../../features/products/requests";
@@ -37,25 +37,19 @@ const Shop = () => {
 
   return (
     <Section extraStyles={"flex flex-col pb-25 h-full flex-1 "}>
-      <h1
-        className={`${
-          data.length === 0 ? "hidden" : "text-[32px] font-semibold"
-        }`}
-      >
-        Shop The Latest
-      </h1>
-      {/* <h1 className="text-[32px] font-semibold">Shop The Latest</h1> */}
+      <h1 className="text-[32px] font-semibold">Shop The Latest</h1>
       <div
-        className={`${
-          data.length === 0
-            ? "flex h-full flex-1 justify-center items-center  "
-            : "mt-10 flex gap-8"
-        }`}
+        // className={`${
+        //   data.length === 0
+        //     ? "flex h-full flex-1 justify-center   "
+        //     : "mt-10 flex gap-8"
+        // }`}
+        className="flex flex-1 justify-center gap-8 mt-10"
       >
         <ShopFilter />
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col">
           <ProductList data={data} isPending={isFetching} isShop />
-          <NoProducts productLength={data.length} isPending={isFetching} />
+          {/* <NoProducts productLength={data.length} isPending={isFetching} /> */}
         </div>
       </div>
     </Section>
