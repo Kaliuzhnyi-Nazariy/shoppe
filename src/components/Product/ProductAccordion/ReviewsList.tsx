@@ -48,6 +48,9 @@ const ReviewsList = ({
     onSuccess(data) {
       successToast("Review deleted!");
       client.invalidateQueries({ queryKey: ["getReview", data.productId] });
+      client.invalidateQueries({
+        queryKey: ["getProduct", { productId: data.productId }],
+      });
     },
   });
 
