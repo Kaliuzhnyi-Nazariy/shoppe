@@ -16,7 +16,11 @@ const Home = () => {
     setParams((prev) => {
       const prevParams = new URLSearchParams(prev);
 
-      prevParams.set("chosenCategory", category);
+      if (prevParams.get("chosenCategory") === category) {
+        prevParams.delete("chosenCategory");
+      } else {
+        prevParams.set("chosenCategory", category);
+      }
 
       return prevParams;
     });
