@@ -53,7 +53,6 @@ const SelectOrder = ({
                     </div>
                   ) : (
                     <div className="relative w-full">
-                      {" "}
                       <button
                         className="border rounded-xl py-2 text-center w-full"
                         type="button"
@@ -88,22 +87,22 @@ const SelectOrder = ({
             </>
           ) : (
             <FormProvider {...methods}>
-              <form
-                className="mt-5 flex gap-2"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  methods.handleSubmit(submit)(e);
-                }}
-              >
-                <Input
-                  key="order"
-                  name="order"
-                  label="Order ID"
-                  type="text"
-                  // disabled={isPending}
-                />
-                <button className="shrink">search</button>
-              </form>
+              <div className="mt-5 flex gap-2 items-start">
+                <div className="grow">
+                  <Input<{ orderId: string }>
+                    name="orderId"
+                    label="Order ID"
+                    type="text"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={methods.handleSubmit(submit)}
+                  className="shrink items-start"
+                >
+                  Search
+                </button>
+              </div>
             </FormProvider>
           )}
         </>
