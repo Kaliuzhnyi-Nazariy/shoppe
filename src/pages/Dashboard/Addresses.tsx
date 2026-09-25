@@ -16,15 +16,7 @@ const Addresses = () => {
         The following addresses will be used on the checkout page by default.
       </p>
 
-      <ul className="flex flex-col gap-12">
-        <li>
-          <Address
-            addresses={billingAddresses}
-            addressesPending={billingPending}
-          />
-        </li>
-        <li></li>
-      </ul>
+      <Address addresses={billingAddresses} addressesPending={billingPending} />
     </Section>
   );
 };

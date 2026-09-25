@@ -35,7 +35,7 @@ const Logout = () => {
         text="LOG OUT"
         fn={mutate}
         pending={isPending}
-        extraStyles="mt-8 px-4 py-1.5"
+        extraStyles="mt-8 px-4 py-1.5 w-48 mx-auto min-[425px]:mr-auto min-[425px]:ml-0"
       />
     </Section>
   );

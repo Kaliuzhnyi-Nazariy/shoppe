@@ -35,7 +35,7 @@ function Input<T extends FieldValues>({
       : typeof value === "string" && value.trim().length > 0;
 
   return (
-    <div className="group text-(--dark-gray) focus-within:text-black text-xs lg:text-[16px]">
+    <div className="group text-(--dark-gray) focus-within:text-black text-xs lg:text-[16px] grow">
       <label
         htmlFor={name}
         className={`absolute duration-150 group-focus-within:-translate-y-full ${

@@ -42,7 +42,10 @@ const ForgetPassword = () => {
   const value = watch("email");
 
   return (
-    <Section extraStyles="text-xs max-w-140 w-full flex-1 flex flex-col items-center justify-center mx-auto lg:text-lg">
+    <Section
+      extraStyles="text-xs max-w-140 w-full flex-1 flex flex-col items-center justify-center mx-auto lg:text-lg"
+      changePaddings="py-8"
+    >
       <h3 className="mx-auto text-center text-xl lg:hidden">Lost password</h3>
       <h3 className="mx-auto text-center text-xl hidden lg:block text-[31.5px] font-semibold">
         Have you Forgotten Your Password ?
@@ -53,7 +56,7 @@ const ForgetPassword = () => {
       </p>
 
       <form onSubmit={handleSubmit(submitHandle)} className="w-full lg:w-125">
-        <div className="relative group transition-colors duration-200 focus-within:text-black mt-16">
+        <div className="relative group transition-colors duration-200 focus-within:text-black mt-12">
           <label
             htmlFor={"email"}
             className={`absolute transition-all group-focus-within:-translate-y-full duration-150 ${
@@ -76,7 +79,7 @@ const ForgetPassword = () => {
         </div>
         <StyledButton
           text="RESET PASSWORD"
-          extraStyles="w-full py-1.5 lg:py-4 mt-10"
+          extraStyles="w-full py-1.5 lg:py-4 mt-8"
           isValid={isValid}
           pending={isPending}
         />

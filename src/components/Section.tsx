@@ -10,7 +10,10 @@ const Section = ({
   return (
     <section
       className={
-        `px-4 ${changePaddings ? changePaddings : "min-[1440px]:p-24"} ` +
+        `px-4 flex flex-col flex-1 ${
+          changePaddings ? changePaddings : "min-[1440px]:p-20 "
+        } ` +
+        // `px-4 ${changePaddings ? changePaddings : "min-[1440px]:p-24"} ` +
         extraStyles
       }
     >
