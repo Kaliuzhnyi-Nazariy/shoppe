@@ -1,6 +1,8 @@
-import { OrbitProgress } from "react-loading-indicators";
 import type { IOrder, IOrderItem } from "../../../features/order/interface";
 import StyledButton from "../StyledButton";
+import { Copy } from "lucide-react";
+import { successToast } from "../toast";
+import Loader from "../Loader";
 
 const MobTrack = ({
   order,
@@ -19,6 +21,19 @@ const MobTrack = ({
 }) => {
   return (
     <div className="border border-(--gray) p-4 rounded-sm text-xs flex flex-col gap-2 min-[1024px]:hidden">
+      <div className="flex gap-2">
+        <DataField name="ID" orderData={order.id} />
+
+        <button
+          onClick={() => {
+            window.navigator.clipboard.writeText(order.id);
+            successToast("ID coppied");
+          }}
+          className="hover:cursor-pointer"
+        >
+          <Copy size={12} />
+        </button>
+      </div>
       <DataField
         name="Shipping address"
         orderData={`${order.shippingStreet}, ${order.shippingCity},
@@ -60,9 +75,7 @@ const MobTrack = ({
                     <StyledButton text="CANCEL ORDER" />
                     )} */}
       {cancelingOrder || updatingOrderStatus ? (
-        <div className="flex flex-col flex-1 items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
           {role && role === "admin" && (

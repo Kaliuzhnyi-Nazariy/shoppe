@@ -1,5 +1,7 @@
+import { Copy } from "lucide-react";
 import type { IOrder, IOrderItem } from "../../../features/order/interface";
 import StyledButton from "../StyledButton";
+import { successToast } from "../toast";
 
 const PcTrack = ({
   order,
@@ -28,7 +30,19 @@ const PcTrack = ({
           <ul className="grid grid-cols-2 grid-rows-4 gap-x-15 gap-y-10 mt-5 w-full min-[1440px]:gap-x-34 ">
             <li className="flex flex-col gap-1.5">
               <h5 className="uppercase font-semibold">order number</h5>
-              <p className="max-w-30 truncate">{order.id}</p>
+              {/* <p className="max-w-30 truncate">{order.id}</p> */}
+              <div className="flex gap-2 items-center">
+                <p className="grow truncate">{order.id}</p>
+                <button
+                  className="shrink cursor-pointer"
+                  onClick={() => {
+                    window.navigator.clipboard.writeText(order.id);
+                    successToast("ID coppied!");
+                  }}
+                >
+                  <Copy size={12} />
+                </button>
+              </div>
             </li>
             <li className="flex flex-col gap-1.5 col-start-1 row-start-2">
               <h5 className="uppercase font-semibold">email</h5>
