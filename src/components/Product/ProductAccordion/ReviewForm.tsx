@@ -52,7 +52,7 @@ const ReviewForm = ({
   const isUserLoggedIn = useSelector(userLoggedIn);
 
   const methods = useForm<IReviewForm>({
-    mode: "all",
+    mode: "onChange",
     resolver: zodResolver(addReviewValidation),
   });
 
@@ -146,80 +146,78 @@ const ReviewForm = ({
     if (reviewData) {
       methods.setValue("comment", reviewData.comment);
       methods.setValue("rating", Number(reviewData.rating));
+      methods.trigger();
     }
-
-    methods.trigger();
   }, [email, isUserLoggedIn, methods, name, reviewData]);
 
   const buttonText = type === "add" ? "Post" : "Update";
 
   return (
-    <FormProvider {...methods}>
-      <form
-        className={"flex flex-col gap-6 " + extraStyles}
-        onSubmit={methods.handleSubmit(handleSubmit)}
-      >
-        {!isUserLoggedIn && (
-          <div className="flex flex-col gap-6 min-[560px]:grid min-[560px]:grid-cols-2">
-            <Input<IReviewForm> label="Name" name="name" />
-            <Input<IReviewForm> label="Email" name="email" type="email" />
-          </div>
-        )}
-        <div className="group text-(--dark-gray) focus-within:text-black text-xs lg:text-[16px] relative">
-          <label
-            htmlFor={"comment"}
-            className={`absolute duration-150 group-focus-within:-translate-y-full ${
-              isFilled ? "-translate-y-full" : "translate-y-1.5"
-            }`}
+    <>
+      {!isReviewLeft && (
+        <FormProvider {...methods}>
+          <form
+            className={"flex flex-col gap-6 " + extraStyles}
+            onSubmit={methods.handleSubmit(handleSubmit)}
           >
-            Comment
-          </label>
-          <textarea
-            id="comment"
-            {...methods.register("comment")}
-            className="border-b border-b-(--light-gray)  outline-none py-1.5 w-full resize-none max-h-30 relative"
-            rows={1}
-          />
-
-          {methods.formState.errors && (
-            <p className="text-xs text-(--error) mt-2">
-              {methods.formState.errors?.comment?.message}
-            </p>
-          )}
-        </div>
-        <div className="flex items-center gap-3">
-          <p>Rating</p>
-          <Controller
-            control={methods.control}
-            name="rating"
-            defaultValue={0}
-            render={({ field }) => (
-              <Rating
-                {...field}
-                value={field.value}
-                onChange={(_, value) => {
-                  field.onChange(value);
-                }}
-                style={{
-                  color: "black",
-                }}
-              />
+            {!isUserLoggedIn && (
+              <div className="flex flex-col gap-6 min-[560px]:grid min-[560px]:grid-cols-2">
+                <Input<IReviewForm> label="Name" name="name" />
+                <Input<IReviewForm> label="Email" name="email" type="email" />
+              </div>
             )}
-          />
-        </div>
-        {isReviewLeft ? (
-          <p className="text-(--error) mx-auto">
-            You have already left a review!
-          </p>
-        ) : (
-          <StyledButton
-            text={buttonText}
-            isValid={methods.formState.isValid && !isReviewLeft}
-            pending={addingReview || updatingReview}
-          />
-        )}
-      </form>
-    </FormProvider>
+            <div className="group text-(--dark-gray) focus-within:text-black text-xs lg:text-[16px] relative">
+              <label
+                htmlFor={"comment"}
+                className={`absolute duration-150 group-focus-within:-translate-y-full ${
+                  isFilled ? "-translate-y-full" : "translate-y-1.5"
+                }`}
+              >
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                {...methods.register("comment")}
+                className="border-b border-b-(--light-gray)  outline-none py-1.5 w-full resize-none max-h-30 relative"
+                rows={1}
+              />
+
+              {methods.formState.errors && (
+                <p className="text-xs text-(--error) mt-2">
+                  {methods.formState.errors?.comment?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-3">
+              <p>Rating</p>
+              <Controller
+                control={methods.control}
+                name="rating"
+                defaultValue={0}
+                render={({ field }) => (
+                  <Rating
+                    {...field}
+                    value={field.value}
+                    onChange={(_, value) => {
+                      field.onChange(value);
+                    }}
+                    style={{
+                      color: "black",
+                    }}
+                  />
+                )}
+              />
+            </div>
+
+            <StyledButton
+              text={buttonText}
+              isValid={methods.formState.isValid && !isReviewLeft}
+              pending={addingReview || updatingReview}
+            />
+          </form>
+        </FormProvider>
+      )}
+    </>
   );
 };
 
