@@ -72,10 +72,12 @@ const Header = () => {
       return params;
     });
 
+  const cleanParams = () => setParams({});
+
   return (
     <header className="p-4 w-full flex lg:justify-between flex-col lg:flex-row gap-4.5 lg:items-center ">
       <div className="flex items-center w-full justify-between">
-        <Link to="/">
+        <Link to="/" onClick={cleanParams}>
           <img src="/SHOPPE.png" alt="shoppe logo" />
         </Link>
         <div className="flex w-full justify-end lg:items-center">

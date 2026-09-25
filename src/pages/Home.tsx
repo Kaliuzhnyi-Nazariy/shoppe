@@ -3,12 +3,24 @@ import CategoriesSlider from "../components/Home/CategoriesSlider";
 import ProductList from "../components/Product/Shop/ProductList";
 import Section from "../components/Section";
 import { getProducts } from "../../features/products/requests";
-import NoProducts from "../components/Product/Shop/NoProducts";
 import type { Categories } from "../../features/products/interface";
-import { useState } from "react";
+// import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 const Home = () => {
-  const [chosenCategory, setCategory] = useState<Categories | null>(null);
+  const [params, setParams] = useSearchParams();
+
+  const chosenCategory = params.get("chosenCategory") as Categories | null;
+
+  const setCategory = (category: Categories) =>
+    setParams((prev) => {
+      const prevParams = new URLSearchParams(prev);
+
+      prevParams.set("chosenCategory", category);
+
+      return prevParams;
+    });
+
   const { data = [], isFetching } = useQuery({
     queryKey: ["getProducts", chosenCategory],
     queryFn: () =>
@@ -22,33 +34,16 @@ const Home = () => {
     retry: false,
   });
 
-  const choseCategory = (category: Categories) => {
-    if (chosenCategory === category) {
-      setCategory(null);
-    } else {
-      setCategory(category);
-    }
-  };
-
   return (
-    <Section
-      extraStyles={
-        "mb-18 " + `${data.length === 0 ? " flex flex-col h-full flex-1 " : ""}`
-      }
-    >
-      <div
-        className={` flex flex-col h-full flex-1 ${
-          data.length === 0 ? " justify-center items-center" : ""
-        }`}
-      >
-        <CategoriesSlider
-          isPending={isFetching}
-          choseCategory={choseCategory}
-          chosenCategory={chosenCategory}
-        />
-        <ProductList data={data} isPending={isFetching} extraStyle="mt-4" />
-        <NoProducts productLength={data.length} isPending={isFetching} />
-      </div>
+    <Section extraStyles={"mb-18 " + `${data.length === 0 ? "  " : ""}`}>
+      <CategoriesSlider
+        isPending={isFetching}
+        choseCategory={setCategory}
+        // choseCategory={choseCategory}
+        chosenCategory={chosenCategory}
+      />
+
+      <ProductList data={data} isPending={isFetching} extraStyle="mt-4" />
     </Section>
   );
 };
