@@ -29,7 +29,9 @@ const Footer = () => {
           <li>
             <Link to="/terms">TERMS OF SERVICES</Link>
           </li>
-          <li>SHIPPING AND RETURNS</li>
+          <li>
+            <Link to="/returns">SHIPPING AND RETURNS</Link>
+          </li>
         </ul>
       </div>
 
