@@ -42,7 +42,7 @@ const Help = () => {
           />
         </li>
         <li>
-          <LinkComponent link="/" icon={Package} text="Shipping" />
+          <LinkComponent link="/returns" icon={Package} text="Returns" />
         </li>
         <li>
           <LinkComponent link="/privacy" icon={Lock} text="Privacy Policy" />
