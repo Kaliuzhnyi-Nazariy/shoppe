@@ -3,7 +3,7 @@ import type { IProduct } from "../../../../features/products/interface.ts";
 import { useSelector } from "react-redux";
 import { userRole } from "../../../../features/user/selectors.ts";
 import { Link } from "react-router";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../../Loader.tsx";
 
 const ProductList = ({
   extraStyle = "",
@@ -27,14 +27,12 @@ const ProductList = ({
   };
 
   return (
-    <div className={"items-center justify-center " + extraStyle}>
+    <div className={" flex flex-col flex-1 " + extraStyle}>
       {isPending ? (
-        <div className="flex flex-col flex-1 items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
-          {data && data.length > 0 && (
+          {data && data.length > 0 ? (
             <ul
               className={`grid grid-cols-2 min-[768px]:grid-cols-3 min-[1024px]:grid-cols-2 gap-x-4 gap-y-6 min-[1024px]:gap-x-14 min-[1024px]:gap-y-21 min-[1440px]:grid-cols-3 ${
                 isShop ? "min-[1440px]:gap-x-6 min-[1440px]:gap-y-17.5" : ""
@@ -63,6 +61,10 @@ const ProductList = ({
                 </li>
               )}
             </ul>
+          ) : (
+            <div className="flex flex-col flex-1 items-center justify-center">
+              <p>No product found</p>
+            </div>
           )}
         </>
       )}
