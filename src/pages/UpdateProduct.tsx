@@ -10,8 +10,8 @@ import type { ICreateProduct } from "../../features/products/interface";
 import Section from "../components/Section";
 import { useNavigate } from "react-router";
 import { errorToast, successToast } from "../components/toast";
-import { OrbitProgress } from "react-loading-indicators";
 import ProductForm from "../components/Routes/ProfductForm/ProductForm";
+import Loader from "../components/Loader";
 
 const UpdateProduct = () => {
   const link = window.location.pathname.split("/");
@@ -66,9 +66,7 @@ const UpdateProduct = () => {
   return (
     <Section extraStyles="pb-25">
       {fetchingProduct ? (
-        <div className="flex flex-col flex-1 items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <ProductForm
           isUpdateForm

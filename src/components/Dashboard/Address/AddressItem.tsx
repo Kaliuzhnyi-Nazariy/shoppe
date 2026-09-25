@@ -5,7 +5,7 @@ import StyledButton from "../../StyledButton";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteAddress } from "../../../../features/address/request";
 import { errorToast, successToast } from "../../toast";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../../Loader";
 
 export const AddressItem = ({ address }: { address: IAddress }) => {
   const [updateFrom, setUpdateForm] = useState(false);
@@ -27,9 +27,7 @@ export const AddressItem = ({ address }: { address: IAddress }) => {
   return (
     <>
       {isPending ? (
-        <div className="flex flex-col items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
           <li className="border border-(--gray) rounded-md p-5">

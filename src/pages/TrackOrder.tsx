@@ -11,13 +11,13 @@ import {
   updateOrderStatus,
 } from "../../features/order/requests";
 import { useEffect } from "react";
-import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
 import { userRole } from "../../features/user/selectors";
 import StyledButton from "../components/StyledButton";
 import MobTrack from "../components/Track/MobTrack";
 import PcTrack from "../components/Track/PcTrack";
 import { errorToast, successToast } from "../components/toast";
+import Loader from "../components/Loader";
 
 const TrackOrder = () => {
   interface TrackOrderId {
@@ -139,9 +139,7 @@ const TrackOrder = () => {
 
       <div className="flex-1 flex flex-col items-center justify-center mb-6">
         {isPending && orderId ? (
-          <div className="flex flex-col flex-1 items-center justify-center">
-            <OrbitProgress color="var(--gray)" size="small" />
-          </div>
+          <Loader />
         ) : order ? (
           <>
             <MobTrack

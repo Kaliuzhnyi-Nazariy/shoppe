@@ -2,7 +2,7 @@ import { useState } from "react";
 import Form from "./Form/Form";
 import type { IAddress } from "../../../../features/address/interface";
 import { AddressItem } from "./AddressItem";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../../Loader";
 
 const Address = ({
   addresses,
@@ -17,7 +17,7 @@ const Address = ({
     <>
       <button
         type="button"
-        className="mt-4.5 text-(--accent)"
+        className="mt-4.5 text-(--accent) mr-auto"
         onClick={() => setAddForm(!addForm)}
       >
         {addForm ? "CANCEL" : "ADD"}
@@ -28,9 +28,7 @@ const Address = ({
       ) : (
         <>
           {addressesPending ? (
-            <div className="flex flex-col items-center justify-center">
-              <OrbitProgress color="var(--gray)" size="small" />
-            </div>
+            <Loader />
           ) : (
             <>
               {addresses.length === 0 ? (

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { userRole } from "../../../features/user/selectors";
 import Searchbar from "../../components/Searchbar";
 import { useSearchParams } from "react-router";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../../components/Loader";
 
 const Orders = () => {
   const role = useSelector(userRole);
@@ -46,9 +46,7 @@ const Orders = () => {
         />
       )}
       {searchPending ? (
-        <div className="flex flex-col flex-1 items-center justify-center">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
           {orderSearchbar.length === 0 && searchParam.length === 0 ? (

@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import ProductPhoto from "../components/Product/ProductPhoto";
 import ProductInfo from "../components/Product/ProductInfo";
 import ProductExtra from "../components/Product/ProductExtra";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../components/Loader";
 
 const Products = () => {
   useEffect(() => {
@@ -34,9 +34,7 @@ const Products = () => {
   return (
     <Section extraStyles="pb-25 flex flex-col flex-1">
       {isPending ? (
-        <div className="flex-1 flex items-center justify-center h-full">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
           <div className="min-[1440px]:flex min-[1440px]:gap-16">

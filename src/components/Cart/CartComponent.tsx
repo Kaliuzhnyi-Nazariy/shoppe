@@ -8,7 +8,7 @@ import { useCart } from "../../hooks/useGetLocalCart";
 import type { ICartItem } from "../../../features/cart/interface";
 import { useMemo } from "react";
 import { ShoppingCart } from "lucide-react";
-import { OrbitProgress } from "react-loading-indicators";
+import Loader from "../Loader";
 
 const CartComponent = () => {
   const isAuthenticated = useSelector(userLoggedIn);
@@ -35,9 +35,7 @@ const CartComponent = () => {
   return (
     <>
       {isAuthenticated && isPending ? (
-        <div className="flex flex-col items-center justify-center flex-1">
-          <OrbitProgress color="var(--gray)" size="small" />
-        </div>
+        <Loader />
       ) : (
         <>
           {showingCondition ? (
