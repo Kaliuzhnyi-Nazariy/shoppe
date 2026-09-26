@@ -4,7 +4,7 @@ import Input from "../Input";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { orderSearchValidation } from "../../validation/orderSearch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { IOrder } from "../../../features/order/interface";
 
 const SelectOrder = ({
@@ -25,6 +25,12 @@ const SelectOrder = ({
     mode: "onChange",
     resolver: zodResolver(orderSearchValidation),
   });
+
+  useEffect(() => {
+    if (!selectedOrder) {
+      methods.reset({ orderId: "" });
+    }
+  }, [selectedOrder, methods]);
 
   const submit: SubmitHandler<{ orderId: string }> = (data) => {
     setOrderId(data.orderId);
